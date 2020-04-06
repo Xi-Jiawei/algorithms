@@ -895,35 +895,35 @@ public:
 
 #pragma region 平衡二叉树（AVL）
 template <class Type>
-struct BalenceTreeNode {
+struct BalanceBinaryTreeNode {
 	Type data;
 	int level;
-	BalenceTreeNode<Type> *leftchild, *rightchild;
+	BalanceBinaryTreeNode<Type> *leftchild, *rightchild;
 };
 template <class Type>
-class BalancedBinaryTree {
+class BalanceBinaryTree {
 private:
-	BalenceTreeNode<Type> *root;
+	BalanceBinaryTreeNode<Type> *root;
 	int m_size;
 	int m_level;
-	void release(BalenceTreeNode<Type> *treeNode) {
+	void release(BalanceBinaryTreeNode<Type> *treeNode) {
 		if (NULL != treeNode) {
 			release(treeNode->leftchild);
 			release(treeNode->rightchild);
 			delete treeNode;
 		}
 	}
-	int height(BalenceTreeNode<Type> *node) {
+	int height(BalanceBinaryTreeNode<Type> *node) {
 		return (NULL == node) ? 0 : node->level;
 	}
 	/*针对LL型，右旋*/
-	void rightRotate(BalenceTreeNode<Type> *&node) {
+	void rightRotate(BalanceBinaryTreeNode<Type> *&node) {
 		/*将左子节点设为新父节点result*/
-		BalenceTreeNode<Type> *result = node->leftchild;
+		BalanceBinaryTreeNode<Type> *result = node->leftchild;
 
 		/*将左子节点的右节点指向旧父节点node，并将旧父节点的左子节点指向左子节点的右节点*/
         #pragma region 先将右子结点暂存，然后替换
-		/*BalenceTreeNode<Type> *temp = result->rightchild;
+		/*BalanceBinaryTreeNode<Type> *temp = result->rightchild;
 		result->rightchild = node;
 		node->leftchild = temp;*/
         #pragma endregion
@@ -939,13 +939,13 @@ private:
 		node=result;
 	}
 	/*针对RR型，左旋*/
-	void leftRotate(BalenceTreeNode<Type> *&node) {
+	void leftRotate(BalanceBinaryTreeNode<Type> *&node) {
 		/*将右子节点设为新父节点result*/
-		BalenceTreeNode<Type> *result = node->rightchild;
+		BalanceBinaryTreeNode<Type> *result = node->rightchild;
 
 		/*将左子节点的右节点指向旧父节点node，并将旧父节点的左子节点指向左子节点的右节点*/
         #pragma region 先将左子结点暂存，然后替换
-		/*BalenceTreeNode<Type> *temp = result->leftchild;
+		/*BalanceBinaryTreeNode<Type> *temp = result->leftchild;
 		result->leftchild = node;
 		node->rightchild = temp;*/
         #pragma endregion
@@ -960,9 +960,9 @@ private:
 
 		node = result;
 	}
-	void insertNode(BalenceTreeNode<Type> * &parentNode, Type data) {
+	void insertNode(BalanceBinaryTreeNode<Type> * &parentNode, Type data) {
 		if (NULL == parentNode) {
-			parentNode = new BalenceTreeNode<Type>();
+			parentNode = new BalanceBinaryTreeNode<Type>();
 			parentNode->data = data;
 			parentNode->level = 1;
 			m_size++;
@@ -989,7 +989,7 @@ private:
 			leftRotate(parentNode);
 		}
 	}
-	BalenceTreeNode<Type> *findNode(BalenceTreeNode<Type> * &parentNode, Type data) {
+	BalanceBinaryTreeNode<Type> *findNode(BalanceBinaryTreeNode<Type> * &parentNode, Type data) {
 		if (NULL == parentNode) return NULL;
 		if (parentNode->data == data) return parentNode;
 		if (parentNode->data > data)
@@ -997,7 +997,7 @@ private:
 		else if (parentNode->data < data)
 			findNode(parentNode->rightchild, data);
 	}
-	void removeNode(BalenceTreeNode<Type> * &parentNode, Type data) {
+	void removeNode(BalanceBinaryTreeNode<Type> * &parentNode, Type data) {
 		if (NULL == parentNode) return;
 		if (parentNode->data == data) {
 			if (parentNode->leftchild == NULL&&parentNode->rightchild == NULL)
@@ -1015,15 +1015,15 @@ private:
 		else if (parentNode->data < data)
 			removeNode(parentNode->rightchild, data);
 	}
-	BalenceTreeNode<Type> *removeMinNode(BalenceTreeNode<Type> *&parentNode) {
+	BalanceBinaryTreeNode<Type> *removeMinNode(BalanceBinaryTreeNode<Type> *&parentNode) {
 		if (NULL == parentNode->leftchild) {
-			BalenceTreeNode<Type> *treeNode = parentNode;
+			BalanceBinaryTreeNode<Type> *treeNode = parentNode;
 			parentNode = parentNode->rightchild;
 			return treeNode;
 		}
 		removeMinNode(parentNode->leftchild);
 	}
-	void preOrderTraverse(BalenceTreeNode<Type> *treeNode) {
+	void preOrderTraverse(BalanceBinaryTreeNode<Type> *treeNode) {
 		if (NULL == treeNode)return;
 		else
 		{
@@ -1032,7 +1032,7 @@ private:
 			preOrderTraverse(treeNode->rightchild);
 		}
 	}
-	void inOrderTraverse(BalenceTreeNode<Type> *treeNode) {
+	void inOrderTraverse(BalanceBinaryTreeNode<Type> *treeNode) {
 		if (NULL == treeNode)return;
 		else
 		{
@@ -1041,7 +1041,7 @@ private:
 			inOrderTraverse(treeNode->rightchild);
 		}
 	}
-	void postOrderTraverse(BalenceTreeNode<Type> *treeNode) {
+	void postOrderTraverse(BalanceBinaryTreeNode<Type> *treeNode) {
 		if (NULL == treeNode)return;
 		else
 		{
@@ -1051,13 +1051,13 @@ private:
 		}
 	}
 	/*层次遍历，非递归*/
-	void levelOrderTraverse(BalenceTreeNode<Type> *root) {
-		queue<BalenceTreeNode<Type>*> queue;//辅助队列，用于层次遍历
+	void levelOrderTraverse(BalanceBinaryTreeNode<Type> *root) {
+		queue<BalanceBinaryTreeNode<Type>*> queue;//辅助队列，用于层次遍历
 		if (root == NULL) {
 			return;
 		}
 		queue.push(root);
-		BalenceTreeNode<Type> *temp = NULL;
+		BalanceBinaryTreeNode<Type> *temp = NULL;
 		while (!queue.empty()) {
 			int size = queue.size();
 			for (int i = 0; i < size; ++i) {
@@ -1076,7 +1076,7 @@ private:
 	}
 	/*将树结点以矩阵形式写入，最后打印矩阵即可形象地将树展示出来。
 	因为树的结点位置与其父结点位置相关，所以递归参数时需要传递父结点的位置。*/
-	void writeArray(BalenceTreeNode<Type> *node, string** &array, int row, int col) {
+	void writeArray(BalanceBinaryTreeNode<Type> *node, string** &array, int row, int col) {
 		if (NULL == root)return;
 		array[row][col] = to_string(node->data);
 		int level = row / 2 + 1;
@@ -1095,12 +1095,12 @@ private:
 		}
 	}
 public:
-	BalancedBinaryTree() : root(NULL), m_size(0) {}
-	~BalancedBinaryTree() { release(root); }
+	BalanceBinaryTree() : root(NULL), m_size(0) {}
+	~BalanceBinaryTree() { release(root); }
 	void insert(Type data) { insertNode(root, data); }
-	BalenceTreeNode<Type> *find(Type data) { return findNode(root, data); }
+	BalanceBinaryTreeNode<Type> *find(Type data) { return findNode(root, data); }
 	void remove(Type data) { removeNode(root, data); }
-	BalenceTreeNode<Type> *removeMin() { return removeMinNode(root); }
+	BalanceBinaryTreeNode<Type> *removeMin() { return removeMinNode(root); }
 	void preOrder() {
 		preOrderTraverse(root);
 		cout << endl;
@@ -1695,167 +1695,432 @@ enum
 	min_size = 2,
 };
 template <class Type>
-struct BTreeNode {
+struct BalanceTreeNode {
 	int count;
-	Type data[max_size];
-	BTreeNode<Type> *child[max_size];
+	int level;//结点高度，叶子结点的level为1
+	Type *data;//关键字
+	BalanceTreeNode<Type> **child;
+	BalanceTreeNode<Type> *parent;
+	BalanceTreeNode() :parent(NULL), count(0){}
+	BalanceTreeNode(int m) :parent(NULL), count(0){
+		data = new Type[m];//m表示b树阶数，关键字最多存储m-1个。定义长度为m的关键字数组，多出的1个空间是为了在插入结点的关键字满时使用
+		this->child = new BalanceTreeNode*[m+1];//子结点最多m个。定义长度为m+1的子结点数组，多出的1个空间是为了在插入结点的子结点数满时使用
+	}
 };
 template <class Type>
-class BTree {
+class BalanceTree {
 private:
-	BTreeNode<Type> *root;
+	BalanceTreeNode<Type> *root;
+	int m;
+	int min;
 	int m_size;
-	int m_height;
-	void release(BTreeNode<Type> *treeNode) {
+	void release(BalanceTreeNode<Type> *treeNode) {
 		if (NULL != treeNode) {
-			release(treeNode->leftchild);
-			release(treeNode->rightchild);
+			if (treeNode->level != 1)
+				for (int i = 0; i <= treeNode->count; i++)
+					release(treeNode->child[i]);
 			delete treeNode;
 		}
 	}
-	int height(BTreeNode<Type> *node) {
-		return (NULL == node) ? 0 : max(height(node->leftchild), height(node->rightchild)) + 1;
+	int level(BalanceTreeNode<Type> *node) {
+		return (NULL == node) ? 0 : node->level;
 	}
-	bool isRed(BTreeNode<Type> *node) {
-		return (NULL == node) ? false : node->color;
-	}
-	void insertNode(BTreeNode<Type> * &parentNode, Type data) {
-		if (NULL == parentNode) {
-			parentNode = new BTreeNode<Type>();
-			parentNode->data = data;
-			m_size++;
-			return;
+	void insertNode(BalanceTreeNode<Type> *&treeNode, Type data) {
+		if (treeNode->level == 1)
+		{//如果当前结点是叶子结点，插入到当前结点
+			int index;
+			for (int i = treeNode->count - 1; i >= 0; i--) {
+				if (treeNode->data[i] == data) {
+					cout << "insert failed" << endl;
+					return;
+				}
+				if (treeNode->data[i] > data) {
+					treeNode->data[i + 1] = treeNode->data[i];
+					index = i;
+				}
+				else {
+					index = i + 1;
+					break;
+				}
+			}
+			treeNode->data[index] = data;
+			treeNode->count++;
+			this->m_size++;
 		}
-		else if (parentNode->data > data) {
-			insertNode(parentNode->leftchild, data);
-		}
-		else if (parentNode->data < data) {
-			insertNode(parentNode->rightchild, data);
+		else
+		{//如果当前结点非叶子结点，插入到当前结点的子结点中
+			int i;
+			for (i = 0; i < treeNode->count; i++) {
+				if (treeNode->data[i] == data) {
+					cout << "insert failed" << endl;
+					return;
+				}
+				if (treeNode->data[i] > data)
+					break;
+			}
+			insertNode(treeNode->child[i], data);
 		}
 
-        #pragma region 左倾红黑树
-		/*
-		1.如果左子结点为黑，右子结点为红，则左旋；（由2-3树衍变成红黑树的左倾规则）
-		2.如果左子结点为红，且左子结点的左子结点也为红，则右旋；（红黑树性质4）
-		3.如果左右子结点均为红，则颜色反转*/
-		/*if(!isRed(parentNode->leftchild) && isRed(parentNode->rightchild))leftRotate(parentNode);//如果左子结点为黑，右子结点为红，则左旋
-		if (isRed(parentNode->leftchild) && isRed(parentNode->leftchild->leftchild))rightRotate(parentNode);//如果左子结点为红，且左子结点的左子结点也为红，则右旋
-		if (isRed(parentNode->leftchild) && isRed(parentNode->rightchild))flipColor(parentNode);//如果左右子结点均为红，则颜色反转*/
+        #pragma region 分裂调整
+		if (treeNode->count == this->m)
+		{
+			BalanceTreeNode<Type> *brotherNode = new BalanceTreeNode<Type>(this->m);
+			int index = 0, middle = this->m / 2;
+			/*for (int i = middle + 1; i < treeNode->count; i++)
+				brotherNode->data[index++] = treeNode->data[i];*/
+			if (treeNode->level == 1) {
+				for (int i = middle + 1; i < treeNode->count; i++)
+					brotherNode->data[index++] = treeNode->data[i];
+			}
+			else
+			{
+				for (int i = middle + 1; i < treeNode->count; i++) 
+				{
+					brotherNode->data[index] = treeNode->data[i];
+					brotherNode->child[index] = treeNode->child[i];
+					treeNode->child[i]->parent = brotherNode;
+					index++;
+				}
+				brotherNode->child[index] = treeNode->child[treeNode->count];
+				treeNode->child[treeNode->count]->parent = brotherNode;
+			}
+			brotherNode->count = index;
+			brotherNode->level = treeNode->level;
+			treeNode->count = middle;
+
+			if (root == treeNode) {
+				BalanceTreeNode<Type> *parentNode = new BalanceTreeNode<Type>(this->m);
+				parentNode->data[0] = treeNode->data[middle];
+				parentNode->child[0] = treeNode;
+				parentNode->child[1] = brotherNode;
+				treeNode->parent = parentNode;
+				brotherNode->parent = parentNode;
+				parentNode->count++;
+				parentNode->level = treeNode->level + 1;
+				this->root = parentNode;
+			}
+			else
+			{
+				for (int i = treeNode->parent->count; i >= 0; i--) {
+					if (treeNode->parent->child[i] != treeNode) {
+						treeNode->parent->data[i] = treeNode->parent->data[i - 1];
+						treeNode->parent->child[i + 1] = treeNode->parent->child[i];
+						index = i;
+					}
+					else
+					{
+						index = i + 1;
+						break;
+					}
+				}
+				treeNode->parent->data[index-1] = treeNode->data[middle];
+				treeNode->parent->child[index] = brotherNode;
+				brotherNode->parent = treeNode->parent;
+				treeNode->parent->count++;
+			}
+		}
         #pragma endregion
 	}
-	void splitNode(BTreeNode<Type> * &parentNode, Type data) {
+	void removeNode(BalanceTreeNode<Type> *&treeNode, Type data) {
+		if (treeNode->level == 1)
+		{//如果当前结点是叶子结点，插入到当前结点
+			int i;
+			for (i = 0; i < treeNode->count; i++) {
+				if (treeNode->data[i] == data)
+					break;
+			}
+			if (i == treeNode->count) cout << "remove failed" << endl;
+			else
+			{
+				if (treeNode->count > min) {
+					for (int j = i; j < treeNode->count; j++) {
+						treeNode->data[j] = treeNode->data[j + 1];
+					}
+					treeNode->count--;
+					this->m_size--;
+					return;
+				}
+				else
+				{
+					int index;
+					for (index = 0; index <= treeNode->parent->count; index++) {
+						if (treeNode->parent->child[index] == treeNode)
+							break;
+					}
+					if (index > 0 && index < treeNode->parent->count) {
+						if (treeNode->parent->child[index - 1]->count > min) {
+							for (int i = 0; i < index; i++)
+								treeNode->data[i + 1] = treeNode->data[i];
+							treeNode->data[0] = treeNode->parent->data[index];
+							treeNode->parent->data[index] = treeNode->parent->child[index - 1]->data[treeNode->parent->child[index - 1]->count - 1];
+							treeNode->parent->child[index - 1]->count--;
+							return;
+						}
+						if (treeNode->parent->child[index + 1]->count > min) {
+							for (int i = index; i < treeNode->count; i++)
+								treeNode->data[i] = treeNode->data[i + 1];
+							treeNode->data[treeNode->count - 1] = treeNode->parent->data[index];
+							treeNode->parent->data[index] = treeNode->parent->child[index + 1]->data[0];
+							for (int i = 0; i < treeNode->parent->child[index + 1]->count; i++)
+								treeNode->parent->child[index + 1]->data[i] = treeNode->parent->child[index + 1]->data[i + 1];
+							treeNode->parent->child[index + 1]->count--;
+							return;
+						}
+						//如果左右兄弟结点关键字数都刚好为下限，则将值从当前结点中删除并随机选择一个兄弟结点合并
+						for (int j = i; j < treeNode->count; j++)
+							treeNode->data[j] = treeNode->data[j + 1];
+						treeNode->count--;
+						merge(treeNode, index, 1);
+					}
+					else if (index == 0) {
+						if (treeNode->parent->child[index + 1]->count > min) {
+							for (int i = index; i < treeNode->count; i++)
+								treeNode->data[i] = treeNode->data[i + 1];
+							treeNode->data[treeNode->count - 1] = treeNode->parent->data[index];
+							treeNode->parent->data[index] = treeNode->parent->child[index + 1]->data[0];
+							for (int i = 0; i < treeNode->parent->child[index + 1]->count; i++)
+								treeNode->parent->child[index + 1]->data[i] = treeNode->parent->child[index + 1]->data[i + 1];
+							treeNode->parent->child[index + 1]->count--;
+							return;
+						}
+						//如果右兄弟结点关键字数刚好为下限，则将值从当前结点中删除并与右兄弟结点合并
+						for (int j = i; j < treeNode->count; j++)
+							treeNode->data[j] = treeNode->data[j + 1];
+						treeNode->count--;
+						merge(treeNode, index, 1);
+					}
+					else if (i == treeNode->parent->count) {
+						if (treeNode->parent->child[index - 1]->count > min) {
+							for (int i = 0; i < index; i++)
+								treeNode->data[i + 1] = treeNode->data[i];
+							treeNode->data[0] = treeNode->parent->data[index];
+							treeNode->parent->data[index] = treeNode->parent->child[index - 1]->data[treeNode->parent->child[index - 1]->count - 1];
+							treeNode->parent->child[index - 1]->count--;
+							return;
+						}
+						//如果左兄弟结点关键字数刚好为下限，则将值从当前结点中删除并与左兄弟结点合并
+						for (int j = i; j < treeNode->count; j++)
+							treeNode->data[j] = treeNode->data[j + 1];
+						treeNode->count--;
+						merge(treeNode, index, -1);
+					}
+				}
+			}
+		}
+		else
+		{/*如果当前结点非叶子结点，则从左右子结点中找到后继值（左子结点的最右键值或右子结点的最左键值），然后向下递归删除*/
+			int i;
+			for (i = 0; i < treeNode->count; i++) {
+				if (treeNode->data[i] == data) {
+					//如果左子结点的键值数大于下限，则将左子结点的最右键值作为后继结点；否则将右子结点的最左键值作为后继结点
+					if (treeNode->child[i - 1]->count > min) {
+						for (int j = 0; j < i; j++) {
+							treeNode->data[j + 1] = treeNode->data[j];
+						}
+						treeNode->data[0] = treeNode->child[i - 1]->data[treeNode->child[i - 1]->count - 1];
+						removeNode(treeNode->child[i - 1], treeNode->child[i - 1]->data[treeNode->child[i - 1]->count - 1]);
+					}
+					else {
+						for (int j = i; j < treeNode->count; j++) {
+							treeNode->data[j] = treeNode->data[j + 1];
+						}
+						treeNode->data[treeNode->count - 1] = treeNode->child[i + 1]->data[0];
+						removeNode(treeNode->child[i + 1], treeNode->child[i + 1]->data[0]);
+					}
+				}
+				if (treeNode->data[i] > data)
+					break;
+			}
+			removeNode(treeNode->child[i], data);
+		}
+	}
+	//合并子结点，参数index表示treeNode在父结点中的位置，参数leftOrRight表示要合并的是左兄弟结点不是右兄弟结点，leftOrRight=-1表示左兄弟结点，leftOrRight=1表示右兄弟结点
+	void merge(BalanceTreeNode<Type> *&treeNode, int index, int leftOrRight) {
+		if (treeNode->level == 1) {
+			if (leftOrRight == -1) {
+				for (int i = 0; i < treeNode->count; i++) {
+					treeNode->parent->child[index + leftOrRight]->data[i + treeNode->parent->child[index + leftOrRight]->count + 1] = treeNode->data[i];
+				}
+				treeNode->parent->child[index + leftOrRight]->data[treeNode->parent->child[index + leftOrRight]->count] = treeNode->parent->data[index - 1];
+				treeNode->parent->child[index + leftOrRight]->count = treeNode->count + treeNode->parent->child[index + leftOrRight]->count + 1;
+				//release(treeNode);
+				for (int i = index - 1; i < treeNode->parent->count; i++) {
+					treeNode->parent->data[i] = treeNode->parent->data[i + 1];
+					treeNode->parent->child[i + 1] = treeNode->parent->child[i + 2];
+				}
+			}
+			else
+			{
+				for (int i = 0; i < treeNode->parent->child[index + leftOrRight]->count; i++) {
+					treeNode->data[i + treeNode->count + 1] = treeNode->parent->child[index + leftOrRight]->data[i];
+				}
+				treeNode->data[treeNode->count] = treeNode->parent->data[index];
+				treeNode->count = treeNode->count + treeNode->parent->child[index + leftOrRight]->count + 1;
+				//release(treeNode->parent->child[index + leftOrRight]);
+				for (int i = index; i < treeNode->parent->count; i++) {
+					treeNode->parent->data[i] = treeNode->parent->data[i + 1];
+					treeNode->parent->child[i + 1] = treeNode->parent->child[i + 2];
+				}
+			}
+			treeNode->parent->count--;
+		}
+		else
+		{
+			if (leftOrRight == -1) {
+				for (int i = 0; i < treeNode->count; i++) {
+					treeNode->parent->child[index + leftOrRight]->data[i + treeNode->parent->child[index + leftOrRight]->count + 1] = treeNode->data[i];
+					treeNode->parent->child[index + leftOrRight]->child[i + treeNode->parent->child[index + leftOrRight]->count + 1] = treeNode->child[i];
+				}
+				treeNode->parent->child[index + leftOrRight]->data[treeNode->parent->child[index + leftOrRight]->count] = treeNode->parent->data[index - 1];
+				treeNode->parent->child[index + leftOrRight]->count = treeNode->count + treeNode->parent->child[index + leftOrRight]->count + 1;
+				//release(treeNode);
+				for (int i = index - 1; i < treeNode->parent->count; i++) {
+					treeNode->parent->data[i] = treeNode->parent->data[i + 1];
+					treeNode->parent->child[i + 1] = treeNode->parent->child[i + 2];
+				}
+			}
+			else
+			{
+				for (int i = 0; i < treeNode->parent->child[index + leftOrRight]->count; i++) {
+					treeNode->data[i + treeNode->count + 1] = treeNode->parent->child[index + leftOrRight]->data[i];
+					treeNode->child[i + treeNode->count + 1] = treeNode->parent->child[index + leftOrRight]->child[i];
+				}
+				treeNode->data[treeNode->count] = treeNode->parent->data[index];
+				treeNode->count = treeNode->count + treeNode->parent->child[index + leftOrRight]->count + 1;
+				//release(treeNode->parent->child[index + leftOrRight]);
+				for (int i = index; i < treeNode->parent->count; i++) {
+					treeNode->parent->data[i] = treeNode->parent->data[i + 1];
+					treeNode->parent->child[i + 1] = treeNode->parent->child[i + 2];
+				}
+			}
+			treeNode->parent->count--;
+		}
+		
 
-	}
-	void preOrderTraverse(BTreeNode<Type> *treeNode) {
-		if (NULL == treeNode)return;
-		else
-		{
-			cout << treeNode->data << " ";
-			preOrderTraverse(treeNode->leftchild);
-			preOrderTraverse(treeNode->rightchild);
+		//如果父结点为根结点且合并后父结点关键字为0，则将根结点指向
+		if (root == treeNode->parent) {
+			if (treeNode->parent->count == 0)
+				root = treeNode->parent->child[0];
+			return;
+		}
+		else {
+			//如果合并后父结点关键字数满足下限要求，则删除结束
+			if (treeNode->parent->count >= min)
+				return;
+
+			//否则当前指针指向父结点，根据父结点的左右兄弟结点和父结点的父结点情况选择向上还是向下递归
+			for (index = 0; index <= treeNode->parent->parent->count; index++) {
+				if (treeNode->parent->parent->child[index] == treeNode->parent)
+					break;
+			}
+			if (index > 0 && index < treeNode->parent->parent->count) {
+				if (treeNode->parent->parent->child[index - 1]->count > min) {
+					for (int i = 0; i < index; i++)
+						treeNode->parent->data[i + 1] = treeNode->parent->data[i];
+					treeNode->parent->data[0] = treeNode->parent->parent->data[index];
+					treeNode->parent->parent->data[index] = treeNode->parent->parent->child[index - 1]->data[treeNode->parent->parent->child[index - 1]->count - 1];
+					removeNode(treeNode->parent->parent->child[index - 1], treeNode->parent->parent->child[index - 1]->data[treeNode->parent->parent->child[index - 1]->count - 1]);
+				}
+				else if (treeNode->parent->parent->child[index + 1]->count > min) {
+					for (int i = index; i < treeNode->parent->count; i++)
+						treeNode->parent->data[i] = treeNode->parent->data[i + 1];
+					treeNode->parent->data[treeNode->parent->count - 1] = treeNode->parent->parent->data[index];
+					treeNode->parent->parent->data[index] = treeNode->parent->parent->child[index + 1]->data[0];
+					for (int i = 0; i < treeNode->parent->parent->child[index + 1]->count; i++)
+						treeNode->parent->parent->child[index + 1]->data[i] = treeNode->parent->parent->child[index + 1]->data[i + 1];
+					removeNode(treeNode->parent->parent->child[index + 1], treeNode->parent->parent->child[index - 1]->data[0]);
+				}
+				else {
+					merge(treeNode->parent, index, 1);
+				}
+			}
+			else if (index == 0) {
+				if (treeNode->parent->parent->child[index + 1]->count > min) {
+					for (int i = index; i < treeNode->parent->count; i++)
+						treeNode->parent->data[i] = treeNode->parent->data[i + 1];
+					treeNode->parent->data[treeNode->parent->count - 1] = treeNode->parent->parent->data[index];
+					treeNode->parent->parent->data[index] = treeNode->parent->parent->child[index + 1]->data[0];
+					for (int i = 0; i < treeNode->parent->parent->child[index + 1]->count; i++)
+						treeNode->parent->parent->child[index + 1]->data[i] = treeNode->parent->parent->child[index + 1]->data[i + 1];
+					removeNode(treeNode->parent->parent->child[index + 1], treeNode->parent->parent->child[index - 1]->data[0]);
+				}
+				else {
+					merge(treeNode->parent, index, 1);
+				}
+			}
+			else if (index == treeNode->parent->parent->count) {
+				if (treeNode->parent->parent->child[index - 1]->count > min) {
+					for (int i = 0; i < index; i++)
+						treeNode->parent->data[i + 1] = treeNode->parent->data[i];
+					treeNode->parent->data[0] = treeNode->parent->parent->data[index];
+					treeNode->parent->parent->data[index] = treeNode->parent->parent->child[index - 1]->data[treeNode->parent->parent->child[index - 1]->count - 1];
+					removeNode(treeNode->parent->parent->child[index - 1], treeNode->parent->parent->child[index - 1]->data[treeNode->parent->parent->child[index - 1]->count - 1]);
+				}
+				else {
+					merge(treeNode->parent, index, -1);
+				}
+			}
 		}
 	}
-	void inOrderTraverse(BTreeNode<Type> *treeNode) {
-		if (NULL == treeNode)return;
-		else
-		{
-			inOrderTraverse(treeNode->leftchild);
-			cout << treeNode->data << " ";
-			inOrderTraverse(treeNode->rightchild);
+	BalanceTreeNode<Type> *findNode(BalanceTreeNode<Type> *&treeNode, Type data) {
+		int i;
+		for (i = 0; i < treeNode->count; i++) {
+			if (treeNode->data[i] == data) {
+				return treeNode;
+			}
+			else if (treeNode->data[i] > data) {
+				break;
+			}
 		}
-	}
-	void postOrderTraverse(BTreeNode<Type> *treeNode) {
-		if (NULL == treeNode)return;
-		else
-		{
-			postOrderTraverse(treeNode->rightchild);
-			postOrderTraverse(treeNode->leftchild);
-			cout << treeNode->data << " ";
-		}
+		if (treeNode->level == 1)return NULL;
+		else findNode(treeNode->child[i], data);
 	}
 	/*层次遍历，非递归*/
-	void levelOrderTraverse(BTreeNode<Type> *root) {
-		queue<BTreeNode<Type>*> queue;//辅助队列，用于层次遍历
+	void levelOrderTraverse(BalanceTreeNode<Type> *root) {
+		queue<BalanceTreeNode<Type>*> queue;//辅助队列，用于层次遍历
 		if (root == NULL) {
 			return;
 		}
 		queue.push(root);
-		BTreeNode<Type> *temp = NULL;
+		BalanceTreeNode<Type> *temp = NULL;
 		while (!queue.empty()) {
 			int size = queue.size();
 			for (int i = 0; i < size; ++i) {
 				temp = queue.front();
 				queue.pop();
-				cout << temp->data << " ";
-				if (temp->leftchild != NULL) {
-					queue.push(temp->leftchild);
+				cout << "{";
+				for (int i = 0; i < temp->count-1; i++) {
+					cout << temp->data[i] << " ";
 				}
-				if (temp->rightchild != NULL) {
-					queue.push(temp->rightchild);
+				cout << temp->data[temp->count - 1] << "}";
+				if (temp->level != 1) {
+					for (int i = 0; i <= temp->count; i++) {
+						queue.push(temp->child[i]);
+					}
 				}
 			}
 			cout << endl;//换行
-		}
-	}
-	/*将树结点以矩阵形式写入，最后打印矩阵即可形象地将树展示出来。
-	因为树的结点位置与其父结点位置相关，所以递归参数时需要传递父结点的位置。*/
-	void writeArray(BTreeNode<Type> *node, string** &array, int row, int col) {
-		if (root == NULL)return;
-		array[row][col] = to_string(node->data);
-		int level = row / 2 + 1;
-		if (level == m_height)return;
-
-		/*递归左右子结点*/
-		//int gap = pow(2, m_height - level - 1) * 3;//3,6,12,...
-		int gap = (2 << (m_height - level - 1));//2,4,8,...
-		if (node->leftchild != NULL) {
-			array[row + 1][col - gap / 2] = "/";
-			writeArray(node->leftchild, array, row + 2, col - gap);
-		}
-		if (node->rightchild != NULL) {
-			array[row + 1][col + gap / 2] = "\\";
-			writeArray(node->rightchild, array, row + 2, col + gap);
 		}
 	}
 public:
-	BTree() : root(NULL), m_size(0) {}
-	~BTree() { release(root); }
-	void insert(Type data) { insertNode(root, data); root->color = black; }
-	void preOrder() {
-		preOrderTraverse(root);
-		cout << endl;
+	BalanceTree(int m) : root(NULL), m_size(0) {
+		this->m = m;
+		this->min = (this->m - 1) / 2;
 	}
-	void inOrder() {
-		inOrderTraverse(root);
-		cout << endl;
+	~BalanceTree() { release(root); }
+	void insert(Type data) {
+		if (NULL == root) {
+			root = new BalanceTreeNode<Type>(this->m);
+			root->data[0] = data;
+			root->count++;
+			root->level = 1;
+			m_size++;
+			return;
+		}
+		insertNode(root, data);
 	}
-	void postOrder() {
-		postOrderTraverse(root);
-		cout << endl;
-	}
+	BalanceTreeNode<Type> *find(Type data) { return findNode(root, data); }
+	void remove(Type data) { removeNode(root, data); }
 	void levelOrder() { levelOrderTraverse(root); }
-	void printTree() {
-		m_height = height(root);//树高度
-		//int width = (pow(2, m_height - 1) - 1) * 6 + 1;//((2 << (m_height - 2)) - 1) * 6 + 1;//0+1,3*2+1,9*2+1,21*2+1,...,6*(pow(2,level-1)-1)+1
-		int width = (pow(2, m_height - 1) - 1) * 4 + 1;//((2 << (m_height - 2)) - 1) * 4 + 1;//0+1,2*2+1,6*2+1,14*2+1,...,4*(pow(2,level-1)-1)+1
-		//string array[2 * m_height - 1][width];
-		string **array = new string*[2 * m_height - 1];
-		for (int i = 0; i < 2 * m_height - 1; i++) {
-			array[i] = new string[width];
-			for (int j = 0; j < width; j++) {
-				array[i][j] = " ";
-			}
-		}
-		int a = 2 << (m_height - 2);
-		//writeArray(root, array, 0, (pow(2, m_height - 1) - 1) * 3);//(pow(2, m_height - 1) - 1) * 3;
-		writeArray(root, array, 0, (pow(2, m_height - 1) - 1) * 2);//(pow(2, m_height - 1) - 1) * 2;
-		/*打印矩阵*/
-		for (int i = 0; i < 2 * m_height - 1; i++) {
-			for (int j = 0; j < width; j++) {
-				cout << array[i][j];
-			}
-			cout << endl;//换行
-		}
-	}
 };
 #pragma endregion

@@ -592,7 +592,7 @@ void tree_test() {
 	tree.inOrder();
 	tree.postOrder();*/
 
-	/*BalancedBinaryTree<int> tree;
+	/*BalanceBinaryTree<int> tree;
 	tree.insert(3);
 	tree.insert(2);
 	tree.insert(5);
@@ -611,7 +611,7 @@ void tree_test() {
 	tree.insert(12);
 	tree.printTree();*/
 
-	RedBlackTree<int> tree;
+	/*RedBlackTree<int> tree;
 	tree.insert(3);
 	tree.insert(2);
 	tree.insert(5);
@@ -631,7 +631,7 @@ void tree_test() {
 	tree.printTree();
 	cout << endl;
 	tree.insert(8);
-	tree.printTree();
+	tree.printTree();*/
 	/*tree.insert(7);
 	tree.insert(3);
 	tree.insert(13);
@@ -702,6 +702,109 @@ void tree_test() {
 	tree.printTree();
 	tree.remove(3);//delete root, case4
 	tree.printTree();*/
+
+    BalanceTree<int> tree = BalanceTree<int>(4);
+	/*tree.insert(3);
+	tree.insert(2);
+	cout << "insert 2" << endl;
+	tree.levelOrder();
+	tree.insert(5);
+	cout << "insert 5" << endl;
+	tree.levelOrder();
+	tree.insert(13);
+	cout << "insert 13" << endl;
+	tree.levelOrder();
+	tree.insert(7);
+	cout << "insert 7" << endl;
+	tree.levelOrder();
+	tree.insert(9);
+	cout << "insert 9" << endl;
+	tree.levelOrder();
+	tree.insert(17);
+	cout << "insert 17" << endl;
+	tree.levelOrder();
+	tree.insert(12);
+	cout << "insert 12" << endl;
+	tree.levelOrder();
+	tree.insert(1);
+	cout << "insert 1" << endl;
+	tree.levelOrder();
+	tree.insert(4);
+	cout << "insert 4" << endl;
+	tree.levelOrder();
+	tree.insert(11);
+	cout << "insert 11" << endl;
+	tree.levelOrder();*/
+	tree = BalanceTree<int>(5);
+	tree.insert(3);
+	tree.insert(7);
+	cout << "insert 7" << endl;
+	tree.levelOrder();
+	tree.insert(1);
+	cout << "insert 1" << endl;
+	tree.levelOrder();
+	tree.insert(14);
+	cout << "insert 14" << endl;
+	tree.levelOrder();
+	tree.insert(8);
+	cout << "insert 8" << endl;
+	tree.levelOrder();
+	tree.insert(5);
+	cout << "insert 5" << endl;
+	tree.levelOrder();
+	tree.insert(11);
+	cout << "insert 11" << endl;
+	tree.levelOrder();
+	tree.insert(17);
+	cout << "insert 17" << endl;
+	tree.levelOrder();
+	tree.insert(13);
+	cout << "insert 13" << endl;
+	tree.levelOrder();
+	tree.insert(6);
+	cout << "insert 6" << endl;
+	tree.levelOrder();
+	tree.insert(12);
+	cout << "insert 12" << endl;
+	tree.levelOrder();
+	tree.insert(20);
+	cout << "insert 20" << endl;
+	tree.levelOrder();
+	tree.insert(23);
+	cout << "insert 23" << endl;
+	tree.levelOrder();
+	tree.insert(26);
+	cout << "insert 26" << endl;
+	tree.levelOrder();
+	tree.insert(4);
+	cout << "insert 4" << endl;
+	tree.levelOrder();
+	tree.insert(16);
+	cout << "insert 16" << endl;
+	tree.levelOrder();
+	tree.insert(18);
+	cout << "insert 18" << endl;
+	tree.levelOrder();
+	tree.insert(24);
+	cout << "insert 24" << endl;
+	tree.levelOrder();
+	tree.insert(25);
+	cout << "insert 25" << endl;
+	tree.levelOrder();
+	tree.insert(19);
+	cout << "insert 19" << endl;
+	tree.levelOrder();
+	tree.insert(17);
+	BalanceTreeNode<int> *node = tree.find(23);
+	tree.remove(24);
+	cout << "remove 24" << endl;
+	tree.levelOrder();
+	tree.remove(19);
+	cout << "remove 19" << endl;
+	tree.levelOrder();
+	tree.remove(18);
+	cout << "remove 18" << endl;
+	tree.levelOrder();
 }
 #pragma endregion
 
