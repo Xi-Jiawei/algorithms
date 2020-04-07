@@ -15,7 +15,7 @@
 #include "algorithms.h"
 #include "data_structures.h"
 
-void set_map_test();
+void stl_test();
 void stack_test();
 void queue_test();
 void heap_test();
@@ -29,7 +29,7 @@ int main()
 {
 	//std::cout << "Hello World!\n"; 
 
-	//set_map_test();
+	//stl_test();
 	//stack_test();
 	//queue_test();
 	//heap_test();
@@ -305,17 +305,49 @@ int main()
     #pragma endregion
 }
 
-#pragma region set/map测试
-void set_map_test() {
-	/*unordered_set*/
-	/*unordered_set<char> set;
-	set.insert(2);
-	set.insert(3);
-	set.insert(3);
-	cout << set.size() << endl;*/
+#pragma region stl容器测试
+void stl_test() {
+	/*vecotr*/
+	/*std::vector<int> a;
+	a.push_back(2);
+	a.push_back(3);
+	std::vector<int>::iterator itr;
+	for (itr = a.begin(); itr != a.end(); itr++)
+	cout << *itr << endl;*/
 
-	/*unordered_map内部由hash表实现*/
-	/*unordered_map<string, int> map;
+	/*queue*/
+	/*std::queue<int> queue;
+	queue.push(3);
+	queue.push(2);
+	int a = queue.front();
+	a = queue.back();
+	queue.pop();*/
+
+	/*list*/
+	/*//list<int> list;
+	std::list<int> list(10,1);//初始化list，插入值为1的10个元素
+	list.insert(list.begin(),3);
+	list.push_back(2);
+	list.remove(1);
+	std::list<int>::iterator itr;
+	for (itr = list.begin(); itr != list.end(); itr++)
+		cout << *itr << endl;*/
+
+	/*unordered_set*/
+	/*std::unordered_set<char> set;
+	set.insert(3);
+	set.insert(2);
+	set.insert('3');
+	set.insert(3);
+	set.insert(51);
+	auto itr = set.find('3'); //std::unordered_set<char>::iterator itr = set.find('3');
+	set.erase(itr);
+	for (itr = set.begin(); itr != set.end(); itr++)
+		cout << *itr << endl;*/
+
+	/*unordered_map内部由hashtable实现，原理和hash_map类似，但其在某些方面做了优化，性能好于hash_map。
+	从c++11开始，unordered_map被引入标准库，而hash_map没有，hash_map属于非标准容器，而且业界普遍使用unordered_map而不是hash_map*/
+	/*std::unordered_map<string, int> map;
 	map.insert(make_pair("c", 3));
 	map.insert(make_pair("b", 2));
 	map.insert(make_pair("e", 5));
@@ -324,13 +356,16 @@ void set_map_test() {
 	map.insert(make_pair("i", 9));
 	map.insert(make_pair("q", 17));
 	map.insert(make_pair("l", 12));
-	auto itr = map.begin();
+	map.insert(make_pair("l", 1));
+	std::unordered_map<string, int>::iterator itr = map.find("i");
 	cout << itr->first << ' ' << itr->second << endl;
-	unordered_map<string, int>::iterator value = map.find("i"); //auto value=map.find(9);
-	cout << value->first << ' ' << value->second << endl;*/
+	map.erase(itr);
+	map.erase("e");
+	for (itr = map.begin(); itr != map.end(); itr++)
+		cout << itr->first << ' ' << itr->second << endl;*/
 
 	/*set内部由红黑树实现，字符串按字典序排列*/
-	/*set<string> set;
+	/*std::set<string> set;
 	set.insert("c");
 	set.insert("b");
 	set.insert("e");
@@ -338,10 +373,14 @@ void set_map_test() {
 	set.insert("g");
 	set.insert("i");
 	set.insert("q");
-	set.insert("l");*/
+	set.insert("l");
+	std::set<string>::iterator itr = set.find("e");
+	set.erase(itr);
+	for (itr = set.begin(); itr != set.end(); itr++)
+		cout << *itr << endl;*/
 
 	/*map内部由红黑树实现*/
-	map<int, string> map;
+	std::map<int, string> map;
 	map.insert(make_pair(3, "c"));
 	map.insert(make_pair(2, "b"));
 	map.insert(make_pair(5, "e"));
@@ -350,18 +389,12 @@ void set_map_test() {
 	map.insert(make_pair(9, "i"));
 	map.insert(make_pair(17, "q"));
 	map.insert(make_pair(12, "l"));
-	auto itr = map.begin();
+	std::map<int, string>::iterator itr = map.find(9);
 	cout << itr->first << ' ' << itr->second << endl;
-	auto value = map.find(9); //map<int, string>::iterator value = map.find(9);
-	cout << value->first << ' ' << value->second << endl;
-
-	/*vecotr*/
-	/*vector<int> a;
-	a.push_back(2);
-	a.push_back(3);
-	vector<int>::iterator itr;
-	for (itr = a.begin(); itr != a.end(); itr++)
-		cout << *itr << endl;*/
+	map.erase(itr);
+	map.erase(5);
+	for (itr = map.begin(); itr != map.end(); itr++)
+		cout << itr->first << ' ' << itr->second << endl;
 }
 #pragma endregion
 
@@ -705,106 +738,153 @@ void tree_test() {
 
     BalanceTree<int> tree = BalanceTree<int>(4);
 	/*tree.insert(3);
-	tree.insert(2);
 	cout << "insert 2" << endl;
+	tree.insert(2);
 	tree.levelOrder();
-	tree.insert(5);
 	cout << "insert 5" << endl;
+	tree.insert(5);
 	tree.levelOrder();
-	tree.insert(13);
 	cout << "insert 13" << endl;
+	tree.insert(13);
 	tree.levelOrder();
-	tree.insert(7);
 	cout << "insert 7" << endl;
+	tree.insert(7);
 	tree.levelOrder();
-	tree.insert(9);
 	cout << "insert 9" << endl;
+	tree.insert(9);
 	tree.levelOrder();
-	tree.insert(17);
 	cout << "insert 17" << endl;
+	tree.insert(17);
 	tree.levelOrder();
-	tree.insert(12);
 	cout << "insert 12" << endl;
+	tree.insert(12);
 	tree.levelOrder();
-	tree.insert(1);
 	cout << "insert 1" << endl;
+	tree.insert(1);
 	tree.levelOrder();
-	tree.insert(4);
 	cout << "insert 4" << endl;
+	tree.insert(4);
 	tree.levelOrder();
-	tree.insert(11);
 	cout << "insert 11" << endl;
+	tree.insert(11);
 	tree.levelOrder();*/
-	tree = BalanceTree<int>(5);
+	/*tree = BalanceTree<int>(5);
 	tree.insert(3);
-	tree.insert(7);
 	cout << "insert 7" << endl;
+	tree.insert(7);
 	tree.levelOrder();
-	tree.insert(1);
 	cout << "insert 1" << endl;
+	tree.insert(1);
 	tree.levelOrder();
-	tree.insert(14);
 	cout << "insert 14" << endl;
+	tree.insert(14);
 	tree.levelOrder();
-	tree.insert(8);
 	cout << "insert 8" << endl;
+	tree.insert(8);
 	tree.levelOrder();
-	tree.insert(5);
 	cout << "insert 5" << endl;
+	tree.insert(5);
 	tree.levelOrder();
-	tree.insert(11);
 	cout << "insert 11" << endl;
+	tree.insert(11);
 	tree.levelOrder();
-	tree.insert(17);
 	cout << "insert 17" << endl;
-	tree.levelOrder();
-	tree.insert(13);
-	cout << "insert 13" << endl;
-	tree.levelOrder();
-	tree.insert(6);
-	cout << "insert 6" << endl;
-	tree.levelOrder();
-	tree.insert(12);
-	cout << "insert 12" << endl;
-	tree.levelOrder();
-	tree.insert(20);
-	cout << "insert 20" << endl;
-	tree.levelOrder();
-	tree.insert(23);
-	cout << "insert 23" << endl;
-	tree.levelOrder();
-	tree.insert(26);
-	cout << "insert 26" << endl;
-	tree.levelOrder();
-	tree.insert(4);
-	cout << "insert 4" << endl;
-	tree.levelOrder();
-	tree.insert(16);
-	cout << "insert 16" << endl;
-	tree.levelOrder();
-	tree.insert(18);
-	cout << "insert 18" << endl;
-	tree.levelOrder();
-	tree.insert(24);
-	cout << "insert 24" << endl;
-	tree.levelOrder();
-	tree.insert(25);
-	cout << "insert 25" << endl;
-	tree.levelOrder();
-	tree.insert(19);
-	cout << "insert 19" << endl;
-	tree.levelOrder();
 	tree.insert(17);
-	BalanceTreeNode<int> *node = tree.find(23);
-	tree.remove(24);
+	tree.levelOrder();
+	cout << "insert 13" << endl;
+	tree.insert(13);
+	tree.levelOrder();
+	cout << "insert 6" << endl;
+	tree.insert(6);
+	tree.levelOrder();
+	cout << "insert 12" << endl;
+	tree.insert(12);
+	tree.levelOrder();
+	cout << "insert 20" << endl;
+	tree.insert(20);
+	tree.levelOrder();
+	cout << "insert 23" << endl;
+	tree.insert(23);
+	tree.levelOrder();
+	cout << "insert 26" << endl;
+	tree.insert(26);
+	tree.levelOrder();
+	cout << "insert 4" << endl;
+	tree.insert(4);
+	tree.levelOrder();
+	cout << "insert 16" << endl;
+	tree.insert(16);
+	tree.levelOrder();
+	cout << "insert 18" << endl;
+	tree.insert(18);
+	tree.levelOrder();
+	cout << "insert 24" << endl;
+	tree.insert(24);
+	tree.levelOrder();
+	cout << "insert 25" << endl;
+	tree.insert(25);
+	tree.levelOrder();
+	cout << "insert 19" << endl;
+	tree.insert(19);
+	tree.levelOrder();
+	cout << "insert 17" << endl;
+	tree.insert(17);
+	tree.levelOrder();
+	cout << "insert 15" << endl;
+	tree.insert(15);
+	tree.levelOrder();
+	cout << "insert 13" << endl;
+	tree.insert(13);
+	tree.levelOrder();
+	cout << "insert 9" << endl;
+	tree.insert(9);
+	tree.levelOrder();
+	cout << "insert 10" << endl;
+	tree.insert(10);
+	tree.levelOrder();
+	BalanceTreeNode<int> *node = tree.find(17);
 	cout << "remove 24" << endl;
+	tree.remove(24);
 	tree.levelOrder();
-	tree.remove(19);
 	cout << "remove 19" << endl;
+	tree.remove(19);
 	tree.levelOrder();
-	tree.remove(18);
 	cout << "remove 18" << endl;
+	tree.remove(18);
 	tree.levelOrder();
+	cout << "remove 25" << endl;
+	tree.remove(25);
+	tree.levelOrder();
+	cout << "remove 16" << endl;
+	tree.remove(16);
+	tree.levelOrder();
+	cout << "remove 4" << endl;
+	tree.remove(4);
+	tree.levelOrder();*/
+    tree = BalanceTree<int>(5);
+	for(int i=1;i<=32;i++)
+		tree.insert(i);
+	tree.levelOrder();
+    int m, data;
+	/*cout << "输入b树阶数：";
+	cin >> m;
+	tree = BalanceTree<int>(m);
+	while (true)
+	{
+		cout << "插入 ";
+		cin >> data;
+		if (data == -1)break;
+		tree.insert(data);
+		tree.levelOrder();
+	}*/
+	while (true)
+	{
+		cout << "删除 ";
+		cin >> data;
+		if (data == -1)break;
+		tree.remove(data);
+		tree.levelOrder();
+	}
 }
 #pragma endregion
 

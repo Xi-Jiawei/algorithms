@@ -1,7 +1,5 @@
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -216,7 +214,7 @@ public class Test {
         tree.levelOrder();*/
 
         /*平衡二叉树（AVL）*/
-        /*BalancedBinaryTree<Integer> tree=new BalancedBinaryTree<>();
+        /*BalanceBinaryTree<Integer> tree=new BalanceBinaryTree<>();
         tree.insert(3);
         //tree.insert(1);
         tree.insert(2);
@@ -237,7 +235,7 @@ public class Test {
         tree.printTree();*/
 
         /*红黑树*/
-        RedBlackTree<Integer> tree=new RedBlackTree<>();
+        //RedBlackTree<Integer> tree=new RedBlackTree<>();
         /*tree.insert(7);
         tree.insert(3);
         tree.insert(13);
@@ -249,7 +247,7 @@ public class Test {
         tree.printTree();
         tree.removeMin();
         tree.printTree();*/
-        tree.insert(3);
+        /*tree.insert(3);
         //tree.insert(1);
         tree.insert(2);
         tree.insert(5);
@@ -263,7 +261,7 @@ public class Test {
         tree.remove(9);//case4
         tree.remove(17);//delete red node
         tree.remove(12);//case5
-        tree.printTree();
+        tree.printTree();*/
         /*tree.insert(3);
         tree.insert(2);
         tree.insert(5);
@@ -294,7 +292,7 @@ public class Test {
         tree.printTree();
         tree.remove(5);//case2
         tree.printTree();*/
-        tree.insert(3);
+        /*tree.insert(3);
         tree.insert(2);
         tree.insert(5);
         tree.insert(13);
@@ -304,10 +302,169 @@ public class Test {
         tree.remove(5);//case1
         tree.printTree();
         tree.remove(3);//delete root, case4
-        tree.printTree();
+        tree.printTree();*/
+
+        //BalanceTree<Integer> tree = new BalanceTree<Integer>(4);
+        BalanceTree<Integer> tree = new BalanceTree<Integer>(Integer.class,4);
+        /*tree.insert(3);
+        System.out.println("insert 2");
+        tree.insert(2);
+        tree.levelOrder();
+        System.out.println("insert 5");
+        tree.insert(5);
+        tree.levelOrder();
+        System.out.println("insert 13");
+        tree.insert(13);
+        tree.levelOrder();
+        System.out.println("insert 7");
+        tree.insert(7);
+        tree.levelOrder();
+        System.out.println("insert 9");
+        tree.insert(9);
+        tree.levelOrder();
+        System.out.println("insert 17");
+        tree.insert(17);
+        tree.levelOrder();
+        System.out.println("insert 12");
+        tree.insert(12);
+        tree.levelOrder();
+        System.out.println("insert 1");
+        tree.insert(1);
+        tree.levelOrder();
+        System.out.println("insert 4");
+        tree.insert(4);
+        tree.levelOrder();
+        System.out.println("insert 11");
+        tree.insert(11);
+        tree.levelOrder();*/
+        //tree = new BalanceTree<Integer>(5);
+        /*tree = new BalanceTree<Integer>(Integer.class,5);
+        tree.insert(3);
+        System.out.println("insert 7");
+        tree.insert(7);
+        tree.levelOrder();
+        System.out.println("insert 1");
+        tree.insert(1);
+        tree.levelOrder();
+        System.out.println("insert 14");
+        tree.insert(14);
+        tree.levelOrder();
+        System.out.println("insert 8");
+        tree.insert(8);
+        tree.levelOrder();
+        System.out.println("insert 5");
+        tree.insert(5);
+        tree.levelOrder();
+        System.out.println("insert 11");
+        tree.insert(11);
+        tree.levelOrder();
+        System.out.println("insert 17");
+        tree.insert(17);
+        tree.levelOrder();
+        System.out.println("insert 13");
+        tree.insert(13);
+        tree.levelOrder();
+        System.out.println("insert 6");
+        tree.insert(6);
+        tree.levelOrder();
+        System.out.println("insert 12");
+        tree.insert(12);
+        tree.levelOrder();
+        System.out.println("insert 20");
+        tree.insert(20);
+        tree.levelOrder();
+        System.out.println("insert 23");
+        tree.insert(23);
+        tree.levelOrder();
+        System.out.println("insert 26");
+        tree.insert(26);
+        tree.levelOrder();
+        System.out.println("insert 4");
+        tree.insert(4);
+        tree.levelOrder();
+        System.out.println("insert 16");
+        tree.insert(16);
+        tree.levelOrder();
+        System.out.println("insert 18");
+        tree.insert(18);
+        tree.levelOrder();
+        System.out.println("insert 24");
+        tree.insert(24);
+        tree.levelOrder();
+        System.out.println("insert 25");
+        tree.insert(25);
+        tree.levelOrder();
+        System.out.println("insert 19");
+        tree.insert(19);
+        tree.levelOrder();
+        System.out.println("insert 17");
+        tree.insert(17);
+        tree.levelOrder();
+        System.out.println("insert 15");
+        tree.insert(15);
+        tree.levelOrder();
+        System.out.println("insert 13");
+        tree.insert(13);
+        tree.levelOrder();
+        System.out.println("insert 9");
+        tree.insert(9);
+        tree.levelOrder();
+        System.out.println("insert 10");
+        tree.insert(10);
+        tree.levelOrder();
+        BalanceTreeNode<Integer> node = tree.find(17);
+        System.out.println("remove 24");
+        tree.remove(24);
+        tree.levelOrder();
+        System.out.println("remove 19");
+        tree.remove(19);
+        tree.levelOrder();
+        System.out.println("remove 18");
+        tree.remove(18);
+        tree.levelOrder();
+        System.out.println("remove 25");
+        tree.remove(25);
+        tree.levelOrder();
+        System.out.println("remove 16");
+        tree.remove(16);
+        tree.levelOrder();
+        System.out.println("remove 4");
+        tree.remove(4);
+        tree.levelOrder();*/
+        tree = new BalanceTree<Integer>(Integer.class,5);
+        for(int i=1;i<=32;i++)
+            tree.insert(i);
+        tree.levelOrder();
+        int m, data;
+        Scanner scanner=new Scanner(System.in);
+        /*System.out.print("输入b树阶数：");
+        m=scanner.nextInt();
+        tree = new BalanceTree<Integer>(Integer.class,m);
+        while (true)
+        {
+            System.out.print("插入 ");
+            data=scanner.nextInt();
+            if (data == -1)break;
+            tree.insert(data);
+            tree.levelOrder();
+        }*/
+        while (true)
+        {
+            System.out.print("删除 ");
+            data=scanner.nextInt();
+            if (data == -1)break;
+            tree.remove(data);
+            tree.levelOrder();
+        }
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月20日
+ *描述: 实现栈的添加、删除功能
+ */
 /*栈（先进后出）*/
 class Stack{
     private int a[];//数组
@@ -353,6 +510,12 @@ class Stack{
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月20日
+ *描述: 实现顺序循环队列的添加、删除功能
+ */
 /*队列（先进先出）*/
 //顺序循环队列
 // 说明：以顺序结构存储的队列称为顺序队列，因为一般的顺序队列的队满条件是this->end=this->maxSize，会出现假上溢现象
@@ -420,6 +583,12 @@ class RoundQueue{
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月21日
+ *描述: 实现最大堆、最小堆的添加数据及删除堆顶功能
+ */
 /*堆*/
 class MaxHeap{
     private long a[];//数组
@@ -684,6 +853,12 @@ class MinHeap{
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月22日
+ *描述: 实现优先队列的添加数据及删除优先值功能
+ */
 /*优先队列（数组实现）*/
 //优先队列又称优先级队列，是一种有序队列，按大小排好序的队列，可用数组或堆来实现。
 //因为上面已经写了堆的实现，下面展示的是用数组实现最大优先队列。
@@ -747,6 +922,12 @@ class MaxPriorityQueue{
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月22日
+ *描述: 实现单向有序链表的插入、删除及查找功能
+ */
 /*链表（单向有序链表）*/
 class Node {
     int data;
@@ -836,6 +1017,12 @@ class SortedList{
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月22日
+ *描述: 实现双向有序链表的插入、删除及查找功能
+ */
 /*链表（双向有序链表）*/
 class DoublyNode {
     int data;
@@ -939,6 +1126,12 @@ class DoublySortedList {
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月23日
+ *描述: 实现普通单向链表的添加、删除及查找功能
+ */
 /*链表（普通单向链表）*/
 class List {
     private Node first = null;//起始节点
@@ -1008,6 +1201,12 @@ class List {
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月23日
+ *描述: 实现普通双向链表的添加、删除及查找功能
+ */
 /*链表（普通双向链表）*/
 class DoublyList {
     private DoublyNode first = null;//起始节点
@@ -1122,6 +1321,12 @@ class DoublyList {
     }
 };
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月24日
+ *描述: 实现一棵普通二叉树的构建及遍历
+ */
 /*普通二叉树*/
 class TreeNode<Type> {
     Type data;
@@ -1248,6 +1453,12 @@ class BinaryTree<Type> {
     public void levelOrder() { levelOrderTraverse(root); }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月24日
+ *描述: 实现二叉查找树的插入、删除及查找功能
+ */
 /*二叉查找树（二叉搜索树或二叉排序树）*/
 class BinarySearchTree<Type extends Comparable> {
     private TreeNode<Type> root;
@@ -1395,32 +1606,38 @@ class BinarySearchTree<Type extends Comparable> {
     public void levelOrder() { levelOrderTraverse(root); }
 };
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月26日
+ *描述: 实现平衡二叉树的插入、删除、查找及打印功能
+ */
 /*平衡二叉树（AVL）*/
-class BalenceTreeNode<Type> {
+class BalanceBinaryTreeNode<Type> {
     Type data;
     int level;
-    BalenceTreeNode<Type> leftchild, rightchild;
+    BalanceBinaryTreeNode<Type> leftchild, rightchild;
 }
-class BalancedBinaryTree<Type extends Comparable> {
-    private BalenceTreeNode<Type> root;
+class BalanceBinaryTree<Type extends Comparable> {
+    private BalanceBinaryTreeNode<Type> root;
     private int m_size;
     private int m_level;
 
-    BalancedBinaryTree() {root=null;m_size=0;}
+    BalanceBinaryTree() {root=null;m_size=0;}
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
         release(root);
     }
 
-    private void release(BalenceTreeNode<Type> treeNode) {
+    private void release(BalanceBinaryTreeNode<Type> treeNode) {
         if (null != treeNode) {
             release(treeNode.leftchild);
             release(treeNode.rightchild);
             treeNode=null;
         }
     }
-    private int height(BalenceTreeNode<Type> node) {
+    private int height(BalanceBinaryTreeNode<Type> node) {
         return (null == node) ? 0 : node.level;
     }
     /*针对LL型，右旋
@@ -1436,9 +1653,9 @@ class BalancedBinaryTree<Type extends Comparable> {
        / \
       5  9
      */
-    private BalenceTreeNode<Type> rightRotate(BalenceTreeNode<Type> node) {
+    private BalanceBinaryTreeNode<Type> rightRotate(BalanceBinaryTreeNode<Type> node) {
         /*将左子节点设为新父节点result*/
-        BalenceTreeNode<Type> result = node.leftchild;
+        BalanceBinaryTreeNode<Type> result = node.leftchild;
 
         /*将左子节点的右节点指向旧父节点node，并将旧父节点的左子节点指向左子节点的右节点*/
         //先将右子结点暂存，然后替换
@@ -1468,9 +1685,9 @@ class BalancedBinaryTree<Type extends Comparable> {
        / \
       2  5
     */
-    private BalenceTreeNode<Type> leftRotate(BalenceTreeNode<Type> node) {
+    private BalanceBinaryTreeNode<Type> leftRotate(BalanceBinaryTreeNode<Type> node) {
         /*将右子节点设为新父节点result*/
-        BalenceTreeNode<Type> result = node.rightchild;
+        BalanceBinaryTreeNode<Type> result = node.rightchild;
 
         /*将左子节点的右节点指向旧父节点node，并将旧父节点的左子节点指向左子节点的右节点*/
         //先将左子结点暂存，然后替换
@@ -1487,9 +1704,9 @@ class BalancedBinaryTree<Type extends Comparable> {
 
         return result;
     }
-    private BalenceTreeNode<Type> insertNode(BalenceTreeNode<Type>  parentNode, Type data) {
+    private BalanceBinaryTreeNode<Type> insertNode(BalanceBinaryTreeNode<Type>  parentNode, Type data) {
         if (null == parentNode) {
-            parentNode = new BalenceTreeNode<Type>();
+            parentNode = new BalanceBinaryTreeNode<Type>();
             parentNode.data = data;
             parentNode.level = 1;
             m_size++;
@@ -1519,14 +1736,14 @@ class BalancedBinaryTree<Type extends Comparable> {
         }
         return parentNode;
     }
-    private BalenceTreeNode<Type> findNode(BalenceTreeNode<Type>  parentNode, Type data) {
+    private BalanceBinaryTreeNode<Type> findNode(BalanceBinaryTreeNode<Type>  parentNode, Type data) {
         if (null == parentNode) return null;
         if (parentNode.data.compareTo(data) == 0) return parentNode;
         if (parentNode.data.compareTo(data) > 0)
             return findNode(parentNode.leftchild, data);
         else return findNode(parentNode.rightchild, data);
     }
-    private BalenceTreeNode<Type> removeNode(BalenceTreeNode<Type>  parentNode, Type data) {
+    private BalanceBinaryTreeNode<Type> removeNode(BalanceBinaryTreeNode<Type>  parentNode, Type data) {
         if (null == parentNode) return null;
         if (parentNode.data == data) {
             if (parentNode.leftchild == null&&parentNode.rightchild == null)
@@ -1552,29 +1769,29 @@ class BalancedBinaryTree<Type extends Comparable> {
             parentNode.rightchild=removeNode(parentNode.rightchild, data);
         return parentNode;
     }
-    private BalenceTreeNode<Type> findMinNode(BalenceTreeNode<Type> parentNode) {
+    private BalanceBinaryTreeNode<Type> findMinNode(BalanceBinaryTreeNode<Type> parentNode) {
         while (null != parentNode.leftchild)
             parentNode=parentNode.leftchild;
         return parentNode;
     }
-    private BalenceTreeNode<Type> removeMinNode(BalenceTreeNode<Type> parentNode) {
+    private BalanceBinaryTreeNode<Type> removeMinNode(BalanceBinaryTreeNode<Type> parentNode) {
         if (null == parentNode.leftchild)
             return parentNode.rightchild;
         parentNode.leftchild=removeMinNode(parentNode.leftchild);
         return parentNode;
     }
-    private BalenceTreeNode<Type> findMaxNode(BalenceTreeNode<Type> parentNode) {
+    private BalanceBinaryTreeNode<Type> findMaxNode(BalanceBinaryTreeNode<Type> parentNode) {
         while (null != parentNode.rightchild)
             parentNode=parentNode.rightchild;
         return parentNode;
     }
-    private BalenceTreeNode<Type> removeMaxNode(BalenceTreeNode<Type> parentNode) {
+    private BalanceBinaryTreeNode<Type> removeMaxNode(BalanceBinaryTreeNode<Type> parentNode) {
         if (null == parentNode.rightchild)
             return parentNode.leftchild;
         parentNode.rightchild=removeMinNode(parentNode.rightchild);
         return parentNode;
     }
-    private void preOrderTraverse(BalenceTreeNode<Type> treeNode) {
+    private void preOrderTraverse(BalanceBinaryTreeNode<Type> treeNode) {
         if (null == treeNode)return;
         else
         {
@@ -1583,7 +1800,7 @@ class BalancedBinaryTree<Type extends Comparable> {
             preOrderTraverse(treeNode.rightchild);
         }
     }
-    private void inOrderTraverse(BalenceTreeNode<Type> treeNode) {
+    private void inOrderTraverse(BalanceBinaryTreeNode<Type> treeNode) {
         if (null == treeNode)return;
         else
         {
@@ -1592,7 +1809,7 @@ class BalancedBinaryTree<Type extends Comparable> {
             inOrderTraverse(treeNode.rightchild);
         }
     }
-    private void postOrderTraverse(BalenceTreeNode<Type> treeNode) {
+    private void postOrderTraverse(BalanceBinaryTreeNode<Type> treeNode) {
         if (null == treeNode)return;
         else
         {
@@ -1602,13 +1819,13 @@ class BalancedBinaryTree<Type extends Comparable> {
         }
     }
     /*层次遍历，非递归*/
-    private void levelOrderTraverse(BalenceTreeNode<Type> root) {
-        Queue<BalenceTreeNode<Type>> queue=new LinkedList<>();//辅助队列，用于层次遍历
+    private void levelOrderTraverse(BalanceBinaryTreeNode<Type> root) {
+        Queue<BalanceBinaryTreeNode<Type>> queue=new LinkedList<>();//辅助队列，用于层次遍历
         if (root == null) {
             return;
         }
         queue.add(root);
-        BalenceTreeNode<Type> temp = null;
+        BalanceBinaryTreeNode<Type> temp = null;
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i = 0; i < size; ++i) {
@@ -1626,7 +1843,7 @@ class BalancedBinaryTree<Type extends Comparable> {
     }
     /*将树结点以矩阵形式写入，最后打印矩阵即可形象地将树展示出来。
     因为树的结点位置与其父结点位置相关，所以递归参数时需要传递父结点的位置。*/
-    private void writeArray(BalenceTreeNode<Type> node, String[][] array, int row, int col) {
+    private void writeArray(BalanceBinaryTreeNode<Type> node, String[][] array, int row, int col) {
         if (root == null)return;
         array[row][col] = node.data.toString();
         int level = row / 2 + 1;
@@ -1646,11 +1863,11 @@ class BalancedBinaryTree<Type extends Comparable> {
     }
 
     public void insert(Type data) { root=insertNode(root, data); }
-    public BalenceTreeNode<Type> find(Type data) { return findNode(root, data); }
+    public BalanceBinaryTreeNode<Type> find(Type data) { return findNode(root, data); }
     public void remove(Type data) { root=removeNode(root, data); }
-    public BalenceTreeNode<Type> findMin() { return findMinNode(root); }
+    public BalanceBinaryTreeNode<Type> findMin() { return findMinNode(root); }
     public void removeMin() { root=removeMinNode(root); }
-    public BalenceTreeNode<Type> findMax() { return findMaxNode(root); }
+    public BalanceBinaryTreeNode<Type> findMax() { return findMaxNode(root); }
     public void removeMax() { root=removeMaxNode(root); }
     public void preOrder() {
         preOrderTraverse(root);
@@ -1689,6 +1906,12 @@ class BalancedBinaryTree<Type extends Comparable> {
     }
 }
 
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年1月27日
+ *描述: 实现红黑树的插入、删除、查找及打印功能
+ */
 /*红黑树*/
 /*1.每个结点或者是红色的，或者是黑色的
 * 2 根结点是黑色的
@@ -2192,4 +2415,426 @@ class RedBlackTree<Type extends Comparable> {
             System.out.print("\n");//换行
         }
     }
+};
+
+/**
+ *作者: 习佳威
+ *版本: version 1.0
+ *日期: 2020年4月7日
+ *描述: 实现B树的插入、删除、查找及打印功能
+ */
+/*平衡树（英文名Balance Tree，简称B树），是一种多路查找树（多路搜索树或多路排序树），其中2-3树是阶数为3的B树。*/
+class BalanceTreeNode<Type> {
+    int count;
+    int level;//结点高度，叶子结点的level为1
+    Type data[];//关键字
+    BalanceTreeNode<Type> child[];
+    BalanceTreeNode<Type> parent;
+
+    BalanceTreeNode() {
+        parent = null;
+        count = 0;
+    }
+
+    /*BalanceTreeNode(int m) {
+        parent = null;
+        count = 0;
+        data = new Type[m];//m表示b树阶数，关键字最多存储m-1个。定义长度为m的关键字数组，多出的1个空间是为了在插入结点的关键字满时使用
+        this.child = new BalanceTreeNode[m + 1];//子结点最多m个。定义长度为m+1的子结点数组，多出的1个空间是为了在插入结点的子结点数满时使用
+    }*/
+
+    BalanceTreeNode(Class<Type> typeClass,int m) {
+        parent = null;
+        count = 0;
+        //data = (Type[]) new Object[m];//此方式创建泛型数组不可取，虽然在编译的时候不会有异常产生，但是程序运行过程中泛型数组的类型信息会被擦除，数组的类型有且仅有Object[]
+        data = (Type[]) Array.newInstance(typeClass, m);//m表示b树阶数，关键字最多存储m-1个。定义长度为m的关键字数组，多出的1个空间是为了在插入结点的关键字满时使用
+        this.child = new BalanceTreeNode[m + 1];//子结点最多m个。定义长度为m+1的子结点数组，多出的1个空间是为了在插入结点的子结点数满时使用
+    }
+}
+class BalanceTree<Type extends Comparable> {
+    private BalanceTreeNode<Type> root;
+    private int m;
+    private int min;
+    private int m_size;
+    private Class<Type> typeClass;
+
+    public BalanceTree(int m) {
+        root=null;m_size=0;
+        this.m = m;
+        this.min = (this.m - 1) / 2;
+    }
+    public BalanceTree(Class<Type> typeClass,int m) {
+        root=null;m_size=0;
+        this.m = m;
+        this.min = (this.m - 1) / 2;
+        this.typeClass=typeClass;
+    }
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        release(root);
+    }
+
+    private void release(BalanceTreeNode<Type> treeNode) {
+        if (null != treeNode) {
+            if (treeNode.level != 1)
+                for (int i = 0; i <= treeNode.count; i++)
+                    release(treeNode.child[i]);
+            treeNode=null;
+        }
+    }
+    private int level(BalanceTreeNode<Type> node) {
+        return (null == node) ? 0 : node.level;
+    }
+    private void insertNode(BalanceTreeNode<Type> treeNode, Type data) {
+        if (treeNode.level == 1)
+        {//如果当前结点是叶子结点，插入到当前结点
+            int index=0;
+            for (int i = treeNode.count - 1; i >= 0; i--) {
+                if (treeNode.data[i] == data) {
+                    System.out.println("insert failed");
+                    return;
+                }
+                if (treeNode.data[i].compareTo(data) > 0) {
+                    treeNode.data[i + 1] = treeNode.data[i];
+                    index = i;
+                }
+                else {
+                    index = i + 1;
+                    break;
+                }
+            }
+            treeNode.data[index] = data;
+            treeNode.count++;
+            this.m_size++;
+        }
+        else
+        {//如果当前结点非叶子结点，插入到当前结点的子结点中
+            int i;
+            for (i = 0; i < treeNode.count; i++) {
+                if (treeNode.data[i] == data) {
+                    System.out.println("insert failed");
+                    return;
+                }
+                if (treeNode.data[i].compareTo(data) > 0)
+                    break;
+            }
+            insertNode(treeNode.child[i], data);
+        }
+
+        /*分裂调整*/
+        if (treeNode.count == this.m)
+        {
+            //BalanceTreeNode<Type> brotherNode = new BalanceTreeNode<Type>(this.m);
+            BalanceTreeNode<Type> brotherNode = new BalanceTreeNode<Type>(typeClass,this.m);
+            int index = 0, middle = this.m / 2;
+			/*for (int i = middle + 1; i < treeNode.count; i++)
+				brotherNode.data[index++] = treeNode.data[i];*/
+            if (treeNode.level == 1) {
+                for (int i = middle + 1; i < treeNode.count; i++)
+                    brotherNode.data[index++] = treeNode.data[i];
+            }
+            else
+            {
+                for (int i = middle + 1; i < treeNode.count; i++)
+                {
+                    brotherNode.data[index] = treeNode.data[i];
+                    brotherNode.child[index] = treeNode.child[i];
+                    treeNode.child[i].parent = brotherNode;
+                    index++;
+                }
+                brotherNode.child[index] = treeNode.child[treeNode.count];
+                treeNode.child[treeNode.count].parent = brotherNode;
+            }
+            brotherNode.count = index;
+            brotherNode.level = treeNode.level;
+            treeNode.count = middle;
+
+            if (root == treeNode) {
+                //BalanceTreeNode<Type> parentNode = new BalanceTreeNode<Type>(this.m);
+                BalanceTreeNode<Type> parentNode = new BalanceTreeNode<Type>(typeClass,this.m);
+                parentNode.data[0] = treeNode.data[middle];
+                parentNode.child[0] = treeNode;
+                parentNode.child[1] = brotherNode;
+                treeNode.parent = parentNode;
+                brotherNode.parent = parentNode;
+                parentNode.count++;
+                parentNode.level = treeNode.level + 1;
+                this.root = parentNode;
+            }
+            else
+            {
+                for (int i = treeNode.parent.count; i >= 0; i--) {
+                    if (treeNode.parent.child[i] != treeNode) {
+                        treeNode.parent.data[i] = treeNode.parent.data[i - 1];
+                        treeNode.parent.child[i + 1] = treeNode.parent.child[i];
+                        index = i;
+                    }
+                    else
+                    {
+                        index = i + 1;
+                        break;
+                    }
+                }
+                treeNode.parent.data[index-1] = treeNode.data[middle];
+                treeNode.parent.child[index] = brotherNode;
+                brotherNode.parent = treeNode.parent;
+                treeNode.parent.count++;
+            }
+        }
+    }
+    private BalanceTreeNode<Type> findNode(BalanceTreeNode<Type> treeNode, Type data) {
+        int i;
+        for (i = 0; i < treeNode.count; i++) {
+            if (treeNode.data[i] == data) {
+                return treeNode;
+            }
+            else if (treeNode.data[i].compareTo(data) > 0) {
+                break;
+            }
+        }
+        if (treeNode.level == 1)return null;
+        else return findNode(treeNode.child[i], data);
+    }
+    private void removeNode(BalanceTreeNode<Type> treeNode, Type data) {
+        if (treeNode.level == 1)
+        {
+            /*如果当前结点是叶子结点，考虑当前结点关键字数是否大于下限min
+			1.如果当前结点关键字数大于下限min，则直接删除
+			2.否则，考虑其左右兄弟结点的关键字数是否大于下限min。如果其左右兄弟结点的关键字数不全为下限，则从其中关键字数大于下限的兄弟结点借一个元素；如果其左右兄弟结点的关键字数刚好都为下限，则与其中一个兄弟结点合并，并向上递归*/
+            int i;
+            for (i = 0; i < treeNode.count; i++) {
+                if (treeNode.data[i] == data)
+                    break;
+            }
+            if (i == treeNode.count) System.out.println("remove failed");
+            else
+            {
+                if (treeNode.count > min) {
+                    for (int j = i; j < treeNode.count; j++) {
+                        treeNode.data[j] = treeNode.data[j + 1];
+                    }
+                    treeNode.count--;
+                    this.m_size--;
+                    return;
+                }
+                else
+                {
+                    int index;
+                    for (index = 0; index <= treeNode.parent.count; index++) {
+                        if (treeNode.parent.child[index] == treeNode)
+                            break;
+                    }
+                    if (index > 0 && treeNode.parent.child[index - 1].count > min) {
+                        for (int j = 0; j < i; j++)
+                            treeNode.data[j + 1] = treeNode.data[j];
+                        treeNode.data[0] = treeNode.parent.data[index - 1];
+                        treeNode.parent.data[index - 1] = treeNode.parent.child[index - 1].data[treeNode.parent.child[index - 1].count - 1];
+                        treeNode.parent.child[index - 1].count--;
+                        return;
+                    }
+                    if (index < treeNode.parent.count && treeNode.parent.child[index + 1].count > min) {
+                        for (int j = i; j < treeNode.count; j++)
+                            treeNode.data[j] = treeNode.data[j + 1];
+                        treeNode.data[treeNode.count - 1] = treeNode.parent.data[index];
+                        treeNode.parent.data[index] = treeNode.parent.child[index + 1].data[0];
+                        for (int j = 0; j < treeNode.parent.child[index + 1].count; j++)
+                            treeNode.parent.child[index + 1].data[j] = treeNode.parent.child[index + 1].data[j + 1];
+                        treeNode.parent.child[index + 1].count--;
+                        return;
+                    }
+                    //如果左右兄弟结点关键字数都刚好为下限，则将值从当前结点中删除并随机选择一个兄弟结点合并
+                    for (int j = i; j < treeNode.count; j++)
+                        treeNode.data[j] = treeNode.data[j + 1];
+                    treeNode.count--;
+                    if (index < treeNode.parent.count)
+                        merge(treeNode, index, 1);
+                    else
+                        merge(treeNode, index, -1);
+                }
+            }
+        }
+        else
+        {
+            /*如果当前结点非叶子结点，则从左右子结点中找到后继值（左子结点的最右键值或右子结点的最左键值），然后向下递归删除*/
+            int i;
+            for (i = 0; i < treeNode.count; i++) {
+                if (treeNode.data[i] == data) {
+                    //如果左子结点的键值数大于下限，则将左子结点的最右键值作为后继结点；否则将右子结点的最左键值作为后继结点
+                    if (treeNode.child[i].count > min) {
+                        treeNode.data[i] = treeNode.child[i].data[treeNode.child[i].count - 1];
+                        removeNode(treeNode.child[i], treeNode.child[i].data[treeNode.child[i].count - 1]);
+                        return;
+                    }
+                    else {
+                        treeNode.data[i] = treeNode.child[i + 1].data[0];
+                        removeNode(treeNode.child[i + 1], treeNode.child[i + 1].data[0]);
+                        return;
+                    }
+                }
+                if (treeNode.data[i].compareTo(data) > 0)
+                    break;
+            }
+            removeNode(treeNode.child[i], data);
+        }
+    }
+    /*合并兄弟结点，参数说明：
+	参数treeNode表示当前要合并的结点，
+	参数index表示treeNode在父结点中的位置，
+	参数leftOrRight表示另外一个要合并的结点是treeNode的左兄弟结点还是treeNode的右兄弟结点，leftOrRight=-1表示左兄弟结点，leftOrRight=1表示右兄弟结点*/
+    private void merge(BalanceTreeNode<Type> treeNode, int index, int leftOrRight) {
+        if (treeNode.level == 1) {
+            if (leftOrRight == -1) {
+                for (int i = 0; i < treeNode.count; i++) {
+                    treeNode.parent.child[index + leftOrRight].data[i + treeNode.parent.child[index + leftOrRight].count + 1] = treeNode.data[i];
+                }
+                treeNode.parent.child[index + leftOrRight].data[treeNode.parent.child[index + leftOrRight].count] = treeNode.parent.data[index - 1];
+                treeNode.parent.child[index + leftOrRight].count = treeNode.count + treeNode.parent.child[index + leftOrRight].count + 1;
+                //release(treeNode);
+                for (int i = index - 1; i < treeNode.parent.count - 1; i++) {
+                    treeNode.parent.data[i] = treeNode.parent.data[i + 1];
+                    treeNode.parent.child[i + 1] = treeNode.parent.child[i + 2];
+                }
+            }
+            else
+            {
+                for (int i = 0; i < treeNode.parent.child[index + leftOrRight].count; i++) {
+                    treeNode.data[i + treeNode.count + 1] = treeNode.parent.child[index + leftOrRight].data[i];
+                }
+                treeNode.data[treeNode.count] = treeNode.parent.data[index];
+                treeNode.count = treeNode.count + treeNode.parent.child[index + leftOrRight].count + 1;
+                //release(treeNode.parent.child[index + leftOrRight]);
+                for (int i = index; i < treeNode.parent.count - 1; i++) {
+                    treeNode.parent.data[i] = treeNode.parent.data[i + 1];
+                    treeNode.parent.child[i + 1] = treeNode.parent.child[i + 2];
+                }
+            }
+            treeNode.parent.count--;
+        }
+        else
+        {
+            if (leftOrRight == -1) {
+                for (int i = 0; i < treeNode.count; i++) {
+                    treeNode.parent.child[index + leftOrRight].data[i + treeNode.parent.child[index + leftOrRight].count + 1] = treeNode.data[i];
+                    treeNode.parent.child[index + leftOrRight].child[i + treeNode.parent.child[index + leftOrRight].count + 1] = treeNode.child[i];
+                }
+                treeNode.parent.child[index + leftOrRight].data[treeNode.parent.child[index + leftOrRight].count] = treeNode.parent.data[index - 1];
+                treeNode.parent.child[index + leftOrRight].count = treeNode.count + treeNode.parent.child[index + leftOrRight].count + 1;
+                //release(treeNode);
+                for (int i = index - 1; i < treeNode.parent.count - 1; i++) {
+                    treeNode.parent.data[i] = treeNode.parent.data[i + 1];
+                    treeNode.parent.child[i + 1] = treeNode.parent.child[i + 2];
+                }
+            }
+            else
+            {
+                for (int i = 0; i < treeNode.parent.child[index + leftOrRight].count; i++) {
+                    treeNode.data[i + treeNode.count + 1] = treeNode.parent.child[index + leftOrRight].data[i];
+                    treeNode.child[i + treeNode.count + 1] = treeNode.parent.child[index + leftOrRight].child[i];
+                }
+                treeNode.child[treeNode.count + treeNode.parent.child[index + leftOrRight].count + 1] = treeNode.parent.child[index + leftOrRight].child[treeNode.parent.child[index + leftOrRight].count];
+                treeNode.data[treeNode.count] = treeNode.parent.data[index];
+                treeNode.count = treeNode.count + treeNode.parent.child[index + leftOrRight].count + 1;
+                //release(treeNode.parent.child[index + leftOrRight]);
+                for (int i = index; i < treeNode.parent.count - 1; i++) {
+                    treeNode.parent.data[i] = treeNode.parent.data[i + 1];
+                    treeNode.parent.child[i + 1] = treeNode.parent.child[i + 2];
+                }
+            }
+            treeNode.parent.count--;
+        }
+
+
+        /*如果treeNode的父结点为根结点且合并后父结点关键字为0，则将根结点指向treeNode父结点的第一个子结点*/
+        if (root == treeNode.parent) {
+            if (treeNode.parent.count == 0)
+                root = treeNode.parent.child[0];
+            return;
+        }
+        else {
+            /*如果合并后父结点关键字数满足下限要求，则结束删除过程*/
+            if (treeNode.parent.count >= min)
+                return;
+
+			/*如果合并后父结点关键字数不满足下限要求，则考虑其左右兄弟结点的关键字数
+			1.如果其左右兄弟结点的关键字数不全为下限，则向其中大于下限的一个兄弟结点借一个关键字，同时兄弟结点的对应子结点也并入过来
+			2.如果其左右兄弟结点的关键字数刚好都为下限，则向上递归合并*/
+            for (index = 0; index <= treeNode.parent.parent.count; index++) {
+                if (treeNode.parent.parent.child[index] == treeNode.parent)
+                    break;
+            }
+            if (index > 0 && treeNode.parent.parent.child[index - 1].count > min) {
+                for (int i = 0; i < index; i++)
+                    treeNode.parent.data[i + 1] = treeNode.parent.data[i];
+                treeNode.parent.data[0] = treeNode.parent.parent.data[index - 1];
+                treeNode.parent.parent.data[index - 1] = treeNode.parent.parent.child[index - 1].data[treeNode.parent.parent.child[index - 1].count - 1];
+                //并入左兄弟结点的最右子结点
+                for (int i = treeNode.parent.count; i >= 0; i--)
+                    treeNode.parent.child[i + 1] = treeNode.parent.child[i];
+                treeNode.parent.child[0] = treeNode.parent.parent.child[index - 1].child[treeNode.parent.parent.child[index - 1].count];
+                treeNode.parent.count++;
+                treeNode.parent.parent.child[index - 1].count--;
+                return;
+            }
+            if (index < treeNode.parent.parent.count && treeNode.parent.parent.child[index + 1].count > min) {
+                treeNode.parent.data[treeNode.parent.count] = treeNode.parent.parent.data[index];
+                treeNode.parent.parent.data[index] = treeNode.parent.parent.child[index + 1].data[0];
+                for (int i = 0; i < treeNode.parent.parent.child[index + 1].count; i++)
+                    treeNode.parent.parent.child[index + 1].data[i] = treeNode.parent.parent.child[index + 1].data[i + 1];
+                //并入右兄弟结点的最左子结点
+                treeNode.parent.count++;
+                treeNode.parent.child[treeNode.parent.count] = treeNode.parent.parent.child[index + 1].child[0];
+                treeNode.parent.parent.child[index + 1].count--;
+                for (int i = 0; i <= treeNode.parent.parent.child[index + 1].count; i++)
+                    treeNode.parent.parent.child[index + 1].child[i] = treeNode.parent.parent.child[index + 1].child[i + 1];
+                return;
+            }
+            if (index < treeNode.parent.parent.count)
+                merge(treeNode.parent, index, 1);
+            else
+                merge(treeNode.parent, index, -1);
+        }
+    }
+    /*层次遍历，非递归*/
+    private void levelOrderTraverse(BalanceTreeNode<Type> root) {
+        Queue<BalanceTreeNode<Type>> queue=new LinkedList<>();//辅助队列，用于层次遍历
+        if (root == null) {
+            return;
+        }
+        queue.add(root);
+        BalanceTreeNode<Type> temp = null;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; ++i) {
+                temp = queue.poll();
+                System.out.print("{");
+                for (int j = 0; j < temp.count-1; j++) {
+                    System.out.print(temp.data[j]+" ");
+                }
+                System.out.print(temp.data[temp.count - 1] + "}");
+                if (temp.level != 1) {
+                    for (int j = 0; j <= temp.count; j++) {
+                        queue.add(temp.child[j]);
+                    }
+                }
+            }
+            System.out.print("\n");//换行
+        }
+    }
+
+    public void insert(Type data) {
+        if (null == root) {
+            //this.root = new BalanceTreeNode<Type>(this.m);
+            this.root = new BalanceTreeNode<Type>(typeClass,this.m);
+            this.root.data[0] = data;
+            this.root.count++;
+            this.root.level = 1;
+            this.m_size++;
+            return;
+        }
+        insertNode(root, data);
+    }
+    public BalanceTreeNode<Type> find(Type data) { return findNode(root, data); }
+    public void remove(Type data) { removeNode(root, data); }
+    public void levelOrder() { levelOrderTraverse(root); }
 };

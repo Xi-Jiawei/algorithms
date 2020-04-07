@@ -174,14 +174,55 @@ void SearchTopK() {
 		cout << result[i] << "  ";*/
 
 	/*快速排序，时间复杂度n*log2(n)*/
-	int *data = new int[a.size()];//不能使用"int data[a.size()];"定义数组，因为数组长度必须是静态常量
+	/*int *data = new int[a.size()];//不能使用"int data[a.size()];"定义数组，因为数组长度必须是静态常量
 	memcpy(data, &a[0], a.size() * sizeof(int));//vector转数组
 	quick_sort(data, 0, a.size() - 1);
 	for (int i = 0; i < a.size(); ++i)
 		cout << data[i] << "  ";
 	cout << endl;
 	for (int i = a.size() - 1; i >= a.size() - k; i--)
-		cout << data[i] << "  ";
+		cout << data[i] << "  ";*/
+
+	/*堆排序*/
+	//建立初始小顶堆heapArray
+	int *heapArray = new int[k + 1];
+	for (int i = 1; i <= k; i++) {
+		heapArray[i] = a[i - 1];
+		while (i > 1)
+		{
+			a[0] = a[i / 2];//暂存父结点
+			if (a[i] > a[0])
+				break;
+			else {
+				a[i / 2] = a[i];
+				a[i] = a[0];
+				i /= 2;
+			}
+		}
+	}
+	//遍历其余的n-k个数与堆顶元素比较，调整小顶堆
+	for (int i = k; i < a.size(); i++) {
+		if (a[i]>heapArray[1]) {
+			heapArray[1] = a[i];
+			//开始调整小顶堆
+			int parentIndex = 1, minIndex;
+			while (parentIndex <= k / 2)
+			{
+				heapArray[0] = heapArray[parentIndex];//暂存父结点
+				if (parentIndex * 2 < k&&heapArray[parentIndex * 2] > heapArray[parentIndex * 2 + 1])
+					minIndex = parentIndex * 2 + 1;
+				else minIndex = parentIndex * 2;
+				if (heapArray[minIndex] > heapArray[0])break;
+				else {
+					heapArray[parentIndex] = heapArray[minIndex];
+					heapArray[minIndex] = heapArray[0];
+				}
+				parentIndex = minIndex;
+			}
+		}
+	}
+	for (int i = 1; i <= k; i++)
+		cout << heapArray[i] << endl;
 }
 #pragma endregion
 
