@@ -104,8 +104,8 @@ public class Test {
         /*算法思路：
         * 1.取前k个数建立初始小顶堆heapArray
         * 2.遍历其余的n-k个数，与堆顶元素比较：如果大于堆顶元素，则将堆顶元素替换成此数，同时重新调整小顶堆；否则，保持堆不变*/
-        int n=20,k=6;
-        long a[]=new long[]{42,17,6,31,5,76,69,66,19,53,4,65,46,90,7,18,37,27,62,25},heapArray[]=new long[k+1];
+        /*int n=20,k=6;
+        long a[]=new long[]{42,17,6,31,5,76,69,66,19,53,4,65,46,90,7,18,37,27,62,25},heapArray[]=new long[k+1];*/
         /*//建立初始小顶堆heapArray
         for (int i = 0; i < k; i++)
             heapArray[i+1]=a[i];
@@ -118,7 +118,7 @@ public class Test {
             }
         }*/
         //建立初始小顶堆heapArray
-        for (int i = 0; i < k; i++) {
+        /*for (int i = 0; i < k; i++) {
             heapArray[i + 1] = a[i];
             MinHeap.shift_up(heapArray, i + 1);
         }
@@ -128,7 +128,7 @@ public class Test {
                 heapArray[1] = a[i];
                 MinHeap.shift_down(heapArray, k);
             }
-        }
+        }*/
 
         /*链表（单向有序链表）*/
         /*SortedList sortedList = new SortedList();
@@ -431,12 +431,17 @@ public class Test {
         System.out.println("remove 4");
         tree.remove(4);
         tree.levelOrder();*/
-        tree = new BalanceTree<Integer>(Integer.class,5);
+        //int m, data, a[]={1,3,7,14,8,5,11,17,13,6,12,20,23,26,4,16,18,24,25,19};
+        int m, data, a[]={39,22,97,41,53,13,21,40,30,27,33,36,35,34,24,29,26,17,28,23,31,32};
+        Scanner scanner=new Scanner(System.in);
+        /*tree = new BalanceTree<Integer>(Integer.class,5);
         for(int i=1;i<=32;i++)
             tree.insert(i);
+        tree.levelOrder();*/
+        tree = new BalanceTree<Integer>(Integer.class,3);
+        for(int i=0;i<a.length;i++)
+            tree.insert(a[i]);
         tree.levelOrder();
-        int m, data;
-        Scanner scanner=new Scanner(System.in);
         /*System.out.print("输入b树阶数：");
         m=scanner.nextInt();
         tree = new BalanceTree<Integer>(Integer.class,m);
@@ -459,11 +464,12 @@ public class Test {
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月20日
- *描述: 实现栈的添加、删除功能
+/* *
+ * 名称: 栈
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月20日
+ * 描述: 实现栈的添加、删除功能
  */
 /*栈（先进后出）*/
 class Stack{
@@ -510,11 +516,12 @@ class Stack{
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月20日
- *描述: 实现顺序循环队列的添加、删除功能
+/* *
+ * 名称: 顺序循环队列
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月20日
+ * 描述: 实现顺序循环队列的添加、删除功能
  */
 /*队列（先进先出）*/
 //顺序循环队列
@@ -583,11 +590,12 @@ class RoundQueue{
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月21日
- *描述: 实现最大堆、最小堆的添加数据及删除堆顶功能
+/* *
+ * 名称: 堆
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月21日
+ * 描述: 实现最大堆、最小堆的添加数据及删除堆顶功能
  */
 /*堆*/
 class MaxHeap{
@@ -853,11 +861,12 @@ class MinHeap{
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月22日
- *描述: 实现优先队列的添加数据及删除优先值功能
+/* *
+ * 名称: 优先队列
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月22日
+ * 描述: 实现优先队列的添加数据及删除优先值功能
  */
 /*优先队列（数组实现）*/
 //优先队列又称优先级队列，是一种有序队列，按大小排好序的队列，可用数组或堆来实现。
@@ -922,11 +931,12 @@ class MaxPriorityQueue{
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月22日
- *描述: 实现单向有序链表的插入、删除及查找功能
+/* *
+ * 名称: 单向有序链表
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月22日
+ * 描述: 实现单向有序链表的插入、删除及查找功能
  */
 /*链表（单向有序链表）*/
 class Node {
@@ -1017,11 +1027,12 @@ class SortedList{
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月22日
- *描述: 实现双向有序链表的插入、删除及查找功能
+/* *
+ * 名称: 双向有序链表
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月22日
+ * 描述: 实现双向有序链表的插入、删除及查找功能
  */
 /*链表（双向有序链表）*/
 class DoublyNode {
@@ -1126,11 +1137,12 @@ class DoublySortedList {
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月23日
- *描述: 实现普通单向链表的添加、删除及查找功能
+/* *
+ * 名称: 普通单向链表
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月23日
+ * 描述: 实现普通单向链表的添加、删除及查找功能
  */
 /*链表（普通单向链表）*/
 class List {
@@ -1201,11 +1213,12 @@ class List {
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月23日
- *描述: 实现普通双向链表的添加、删除及查找功能
+/* *
+ * 名称: 普通双向链表
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月23日
+ * 描述: 实现普通双向链表的添加、删除及查找功能
  */
 /*链表（普通双向链表）*/
 class DoublyList {
@@ -1321,11 +1334,12 @@ class DoublyList {
     }
 };
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月24日
- *描述: 实现一棵普通二叉树的构建及遍历
+/* *
+ * 名称: 普通二叉树
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月24日
+ * 描述: 实现一棵普通二叉树的构建及遍历
  */
 /*普通二叉树*/
 class TreeNode<Type> {
@@ -1453,11 +1467,12 @@ class BinaryTree<Type> {
     public void levelOrder() { levelOrderTraverse(root); }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月24日
- *描述: 实现二叉查找树的插入、删除及查找功能
+/* *
+ * 名称: 二叉查找树
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月24日
+ * 描述: 实现二叉查找树的插入、删除及查找功能
  */
 /*二叉查找树（二叉搜索树或二叉排序树）*/
 class BinarySearchTree<Type extends Comparable> {
@@ -1606,11 +1621,12 @@ class BinarySearchTree<Type extends Comparable> {
     public void levelOrder() { levelOrderTraverse(root); }
 };
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月26日
- *描述: 实现平衡二叉树的插入、删除、查找及打印功能
+/* *
+ * 名称: 平衡二叉树
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月26日
+ * 描述: 实现平衡二叉树的插入、删除、查找及打印功能
  */
 /*平衡二叉树（AVL）*/
 class BalanceBinaryTreeNode<Type> {
@@ -1906,11 +1922,12 @@ class BalanceBinaryTree<Type extends Comparable> {
     }
 }
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年1月27日
- *描述: 实现红黑树的插入、删除、查找及打印功能
+/* *
+ * 名称: 红黑树
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年1月27日
+ * 描述: 实现红黑树的插入、删除、查找及打印功能
  */
 /*红黑树*/
 /*1.每个结点或者是红色的，或者是黑色的
@@ -2417,11 +2434,12 @@ class RedBlackTree<Type extends Comparable> {
     }
 };
 
-/**
- *作者: 习佳威
- *版本: version 1.0
- *日期: 2020年4月7日
- *描述: 实现B树的插入、删除、查找及打印功能
+/* *
+ * 名称: B树
+ * 作者: 习佳威
+ * 版本: version 1.0
+ * 日期: 2020年4月7日
+ * 描述: 实现B树的插入、删除、查找及打印功能
  */
 /*平衡树（英文名Balance Tree，简称B树），是一种多路查找树（多路搜索树或多路排序树），其中2-3树是阶数为3的B树。*/
 class BalanceTreeNode<Type> {

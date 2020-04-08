@@ -35,7 +35,7 @@ int main()
 	//heap_test();
 	//node_test();
 	//list_test();
-	tree_test();
+	//tree_test();
 
 	#pragma region 归并排序
 	/*int data[] = { 13,3,34,23,23,19,22,18,2,9,13,19,6 };
@@ -90,6 +90,10 @@ int main()
 	
     #pragma region 删除字符串中的"ab"字符
 	//DeleteString();
+    #pragma endregion
+
+    #pragma region 大数的加法和乘法（a, b可能超integer和long的取值范围）
+	bigNumber();
     #pragma endregion
 
     #pragma region top k problem
@@ -861,11 +865,18 @@ void tree_test() {
 	cout << "remove 4" << endl;
 	tree.remove(4);
 	tree.levelOrder();*/
+	int m, data, a[] = { 1,3,7,14,8,5,11,17,13,6,12,20,23,26,4,16,18,24,25,19 };
+	//int m, data, a[] = { 39,22,97,41,53,13,21,40,30,27,33,36,35,34,24,29,26,17,28,23,31,32 };
     tree = BalanceTree<int>(5);
 	for(int i=1;i<=32;i++)
 		tree.insert(i);
 	tree.levelOrder();
-    int m, data;
+	/*tree = BalanceTree<int>(5);
+	//int size = end(a) - begin(a);//头指针与尾指针的差即数组长度。注：同类型的指针的差，与类型无关
+	int size = sizeof(a) / sizeof(a[0]);
+	for (int i = 0; i < size; i++)
+		tree.insert(a[i]);
+	tree.levelOrder();*/
 	/*cout << "输入b树阶数：";
 	cin >> m;
 	tree = BalanceTree<int>(m);

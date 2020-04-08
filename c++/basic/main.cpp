@@ -149,7 +149,7 @@ int main()
 	//虽然直接修改常量会得到一个编译错误，但是使用间接指针修改内存，只要符合语法则不会得到任何错误和警告
 	const int a = 17;
 	//a = 23;//报错“表达式必须是可修改的左值”
-	int* p = (int*)&a;//指针可强制转换类型const int*为int*
+	int *p = (int*)&a;//指针可强制转换类型const int*为int*
 	*p = 23;
 	cout << a << endl;*/
     #pragma endregion
@@ -164,16 +164,27 @@ int main()
 	cout << static_test() << endl;*/
     #pragma endregion
 
+    #pragma region 指针
+	/*char *str = "hello world";
+	char *ptr = str + 6;
+	cout << ptr << endl;
+	int a[] = {3,2,5,13,7,9,17,12};
+	int *p = a, *p0 = &a[0], *p3 = &a[3];
+	cout << (p0 - p) << endl;
+	cout << (p3 - p0) << endl;
+	int size = end(a) - begin(a);//求数组长度*/
+    #pragma endregion
+
     #pragma region 引用
-	/*char* str = "hello world";
-	char* &ptr = str;*/
+	/*char *str = "hello world";
+	char *&ptr = str;*/
 	/*int a = 3, b = 4;
 	reference_test(a, b);//引用作为参数修改其值时，相当于引用的变量的值也作了修改，所以使用引用或指针可返回多个值，有效解决函数只返回一个值的问题*/
     #pragma endregion
 
     #pragma region char*
-	/*char* str = "hello world";//指针变量str存储在栈区，但是被创建的字符串"hello world"存储在常量区
-	char* str1= "hello world";//调试发现str和str1指向的地址相同，这就证明字符串"hello world"被创建后就存储在常量区
+	/*char *str = "hello world";//指针变量str存储在栈区，但是被创建的字符串"hello world"存储在常量区
+	char *str1= "hello world";//调试发现str和str1指向的地址相同，这就证明字符串"hello world"被创建后就存储在常量区
 	cout << (str == str1) << endl;
 
 	cout << str << endl;
@@ -182,10 +193,10 @@ int main()
 	cout << sizeof(*str) << endl;//sizeof(*str)==sizeof(char)
 	cout << sizeof(str) << endl;//指针变量大小根据编译器而定，64位编译器上指针变量大小是64位（即8字节），32位指针变量大小是32位（即4字节）
 
-	//char* dst = "hi";//不能作为strcpy、strcat等函数的输出。因为此时指针指向常量区（在java中称为字符串常量池），向常量区进行写入操作会引发“写入异常错误”
+	//char *dst = "hi";//不能作为strcpy、strcat等函数的输出。因为此时指针指向常量区（在java中称为字符串常量池），向常量区进行写入操作会引发“写入异常错误”
 	//char dst[4];
-	//char* dst=new char[20];
-	char* dst = (char*)malloc(sizeof(char) * 20);
+	//char *dst=new char[20];
+	char *dst = (char*)malloc(sizeof(char) * 20);
 	strcpy(dst, "hello");
 	strcat(dst, " world");*/
 
@@ -239,7 +250,24 @@ int main()
 	cout << sizeof(arrA[0]) << endl;//4
 	int arrB[] = { 1,2,3 };
 	cout << sizeof(arrB) << endl;//12
-	cout << sizeof(arrB[0]) << endl;//4*/
+	cout << sizeof(arrB[0]) << endl;//4
+	int size = sizeof(arrB) / sizeof(arrB[0]);//求数组长度*/
+    #pragma endregion
+
+    #pragma region 整型转字符串（int范围）
+    int n, temp, d, i = 0, size = 1;
+	cin >> n;
+	/*temp = n;
+	while (temp /= 10)size++;
+	string n_str=string(size,0);
+	do {
+		d = pow(10, (size - i - 1));
+		n_str[i++] = n / d + '0';
+	} while (n %= d);
+	n_str[i] = 0;*/
+	char *n_str = new char[20];
+	sprintf(n_str, "%d", n);
+	size = strlen(n_str);
     #pragma endregion
 
     return 0;

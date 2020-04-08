@@ -56,20 +56,121 @@ void DeleteString(){
 }
 #pragma endregion
 
-#pragma region 计算a*b（a, b可能超integer和long的取值范围）：待优化
-void Multiply(){
+#pragma region 大数的加法和乘法（a, b可能超integer和long的取值范围）
+string bigNumberPlus(string a_str, string b_str) {
+	/*string result;
+	int digit, carry = 0;
+	if (a_str.length() < b_str.length()) {
+		string temp = a_str;
+		a_str = b_str;
+		b_str = temp;
+	}
+	result = string(a_str.length() + 1, 0);
+	for (int i = 0; i < b_str.length(); i++) {
+		digit = b_str[b_str.length() - 1 - i] + a_str[a_str.length() - 1 - i] - 2 * '0' + carry;
+		if (digit >= 10) {
+			result[result.length() - 1 - i] = digit - 10 + '0';
+			carry = 1;
+		}
+		else
+		{
+			result[result.length() - 1 - i] = digit + '0';
+			carry = 0;
+		}
+	}
+	for (int i = b_str.length(); i < a_str.length(); i++) {
+		digit = a_str[a_str.length() - 1 - i] - '0' + carry;
+		if (digit >= 10) {
+			result[result.length() - 1 - i] = digit - 10 + '0';
+			carry = 1;
+		}
+		else
+		{
+			result[result.length() - 1 - i] = digit + '0';
+			carry = 0;
+		}
+	}
+	if (carry != 0) {
+		result[0] = '1';
+		return result;
+	}
+	else
+		return result.substr(1);*/
+
+	string result = string((a_str.length() > b_str.length() ? a_str.length() : b_str.length()) + 1, 0);
+	int digit, carry = 0, i = a_str.length() - 1, j = b_str.length() - 1, k = result.length() - 1;
+	while (i >=0 || j >=0)
+	{
+		int a_digit = i >= 0 ? a_str[i] - '0' : 0, b_digit = j >= 0 ? b_str[j] - '0' : 0;
+		digit = a_digit + b_digit + carry;
+		result[k] = digit % 10 + '0';
+		carry = digit / 10;
+		i--, j--, k--;
+	}
+	if (carry != 0) {
+		result[0] = '1';
+		return result;
+	}
+	else
+		return result.substr(1);
+}
+string bigNumberMultiply(string a_str, string b_str) {
+	int *result = new int[a_str.length() + b_str.length()]{ 0 }, *middle_result = new int[a_str.length() + 1];
+	int digit, carry = 0;
+	for (int i = 0; i < b_str.length(); i++) {
+		for (int j = 0; j < a_str.length(); j++) {
+			digit = (a_str[a_str.length() - 1 - j] - '0')*(b_str[b_str.length() - 1 - i] - '0') + carry;
+			middle_result[a_str.length() - j] = digit % 10;
+			carry = digit / 10;
+		}
+		middle_result[0] = carry;
+		/*for (int j = 0; j <= a_str.length(); j++)cout << middle_result[j];
+		cout << endl;*/
+
+		carry = 0;
+		for (int j = 0; j <= a_str.length(); j++) {
+			digit = result[a_str.length() + b_str.length() - 1 - i - j] + middle_result[a_str.length() - j] + carry;
+			result[a_str.length() + b_str.length() - 1 - i - j] = digit % 10;
+			carry = digit / 10;
+		}
+		/*for (int j = 0; j < a_str.length() + b_str.length(); j++)cout << result[j];
+		cout << endl;*/
+	}
+
+	/*将整型数组转成字符串*/
+	string result_str;
+	if (result[0] != 0) {
+		result_str = string(a_str.length() + b_str.length(), 0);
+		for (int i = 0; i < a_str.length() + b_str.length(); i++)
+			result_str[i] = result[i] + '0';
+	}
+	else
+	{
+		result_str = string(a_str.length() + b_str.length() - 1, 0);
+		for (int i = 1; i < a_str.length() + b_str.length(); i++)
+			result_str[i - 1] = result[i] + '0';
+	}
+	return result_str;
+}
+void bigNumber(){
 	string a_str, b_str;
 	cin >> a_str >> b_str;
 	/*int a = 0, b = 0;
 	for (int i = 0; i < a_str.length(); i++)
-		a += pow(10, a_str.length() - 1-i)*(a_str[i] - '0');
+		a += pow(10, a_str.length() - 1 - i)*(a_str[i] - '0');
 	for (int i = 0; i < b_str.length(); i++)
-		b += pow(10, b_str.length() - 1-i)*(b_str[i] - '0');*/
-	int multiply = 0;
+		b += pow(10, b_str.length() - 1 - i)*(b_str[i] - '0');*/
+	/*int multiply = 0;
 	for (int i = 0; i < a_str.length(); i++)
 		for (int j = 0; j < b_str.length(); j++) {
 			multiply += pow(10, a_str.length() - 1 - i)*(a_str[i] - '0')*pow(10, b_str.length() - 1 - j)*(b_str[j] - '0');
-		}
+		}*/
+
+	/*大数的加法和乘法*/
+	string multiply, plus;
+	plus = bigNumberPlus(a_str, b_str);
+	cout << plus << endl;
+	multiply = bigNumberMultiply(a_str, b_str);
 	cout << multiply << endl;
 }
 #pragma endregion

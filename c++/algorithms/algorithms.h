@@ -19,7 +19,7 @@ using namespace std;
 
 int LengthOfLongestSubstring(string s);
 void DeleteString();
-void Multiply();
+void bigNumber();
 void WordBreak();
 void SearchTopK();
 void FibonacciSeq();
