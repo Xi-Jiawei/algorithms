@@ -18,10 +18,11 @@
 using namespace std;
 
 int LengthOfLongestSubstring(string s);
-void DeleteString();
+void patternMatching();
+void deleteString();
 void bigNumber();
 void WordBreak();
-void SearchTopK();
+void searchTopK();
 void FibonacciSeq();
 void FibonacciSeqPro();
 void PrimeFactorization();

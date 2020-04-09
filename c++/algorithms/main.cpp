@@ -88,8 +88,12 @@ int main()
 	cout << result << endl;*/
     #pragma endregion
 	
+    #pragma region 模式匹配
+	//patternMatching();
+    #pragma endregion
+
     #pragma region 删除字符串中的"ab"字符
-	//DeleteString();
+	//deleteString();
     #pragma endregion
 
     #pragma region 大数的加法和乘法（a, b可能超integer和long的取值范围）
@@ -97,7 +101,7 @@ int main()
     #pragma endregion
 
     #pragma region top k problem
-	//SearchTopK();
+	//searchTopK();
     #pragma endregion
 
     #pragma region 递归数组

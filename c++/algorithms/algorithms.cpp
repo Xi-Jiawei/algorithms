@@ -4,6 +4,8 @@
 #include "algorithms.h"
 #include <map>
 
+#include "strings.h"
+
 #pragma region 不含有重复字符的 最长子串 的长度：待优化
 int LengthOfLongestSubstring(string s) {
     #pragma region 使用set
@@ -42,17 +44,116 @@ int LengthOfLongestSubstring(string s) {
 }
 #pragma endregion
 
+#pragma region 模式匹配
+int bruteForce(string str, string pattern) {
+	int i, j;
+	for (i = 0; i < str.length(); i++)
+	{
+		for (j = 0; j < pattern.length(); j++) {
+			if (str[i + j] != pattern[j])
+				break;
+		}
+		if (j == pattern.length())
+			break;
+	}
+	if (j == pattern.length())
+		return i;
+	else
+		return -1;
+}
+int bruteForce(char *str, char *pattern) {
+	int i = 0, j = 0;
+	while (str[i])
+	{
+		while (pattern[j]) {
+			if (str[i + j] != pattern[j])
+				break;
+			j++;
+		}
+		if (!pattern[j])break;
+		i++, j = 0;
+	}
+	if (!pattern[j])
+		return i;
+	else
+		return -1;
+}
+/*next数组，next[j] = k，代表j之前的字符串中有最大长度为k的相同前缀后缀，其中k<j-1*/
+void next(char *pattern,int *next) {
+	int length = strlen(pattern), j = 0, k = -1;//注，j、k为一前一后的同步频索引，当字符不匹配时，k回溯至next[k]
+	next[0] = -1;
+	while (j < length - 1) {
+		if (k == -1 || pattern[j] == pattern[k]) {
+			next[++j] = ++k;
+			/*if (pattern[++j] == pattern[++k])
+				next[j] = next[k];
+			else
+				next[j] = k;*/
+		}
+		else {
+			k = next[k];
+		}
+	}
+	for (int i = 0; i < length; i++)cout << next[i] << " ";
+	cout << endl;
+}
+int kmp(char *str, char *pattern) {
+	int i = 0, j = 0;
+	int *nextArr = new int[strlen(pattern)];
+	next(pattern, nextArr);
+	while (str[i] && pattern[j])
+	{
+		if (j == -1 || str[i] == pattern[j]) {
+			i++;
+			j++;
+		}
+		else
+		{
+			j = nextArr[j];
+		}
+	}
+	if (!pattern[j])
+		return i - strlen(pattern);
+	else
+		return -1;
+}
+void patternMatching() {
+	string str, pattern;
+	cin >> str >> pattern;//abcdeabfdabde abd, abcdeabcadfabcabde abcabd
+	int index;
+	//index = bruteForce(str, pattern);
+	char *cstr = new char[str.length()], *cpattern = new char[pattern.length()];
+	strcpy(cstr, str.c_str());
+	strcpy(cpattern, pattern.c_str());
+	//index = bruteForce(cstr, cpattern);
+	index = kmp(cstr, cpattern);
+	cout << index << endl;
+}
+#pragma endregion
+
 #pragma region 删除字符串中的"ab"字符
-void DeleteString(){
+void deleteString(){
 	string str;
 	cin >> str;
-	int index = str.find("ab");
+	/*int index = str.find("ab");
 	while (index != -1)
 	{
 		str = str.substr(0, index) + str.substr(index + 2, str.length() - 2 - index);
 		index = str.find("ab");
+	}*/
+	char *cstr = new char[str.length()], *temp;
+	strcpy(cstr, str.c_str());
+	int index = bruteForce(cstr, "ab");
+	while (index != -1)
+	{
+		temp = new char[strlen(cstr) - 2];
+		strncpy(temp, cstr, index);
+		strncpy(temp + index, cstr + index + 2, strlen(cstr) - 2 - index);
+		temp[strlen(cstr) - 2] = 0;
+		cstr = temp;
+		index = bruteForce(cstr, "ab");
 	}
-	cout << str << endl;
+	cout << cstr << endl;
 }
 #pragma endregion
 
@@ -114,6 +215,30 @@ string bigNumberPlus(string a_str, string b_str) {
 	else
 		return result.substr(1);
 }
+char *bigNumberPlus(char *a_str, char *b_str) {
+	int a_strlen=strlen(a_str), b_strlen = strlen(b_str);
+	char *result = new char[(a_strlen > b_strlen ? a_strlen : b_strlen) + 1];
+	int digit, carry = 0, i = a_strlen - 1, j = b_strlen - 1, k = a_strlen > b_strlen ? a_strlen : b_strlen;
+	while (i >= 0 || j >= 0)
+	{
+		int a_digit = i >= 0 ? a_str[i] - '0' : 0, b_digit = j >= 0 ? b_str[j] - '0' : 0;
+		digit = a_digit + b_digit + carry;
+		result[k] = digit % 10 + '0';
+		carry = digit / 10;
+		i--, j--, k--;
+	}
+	if (carry != 0) {
+		result[0] = '1';
+		result[(a_strlen > b_strlen ? a_strlen : b_strlen) + 1] = 0;
+		return result;
+	}
+	else {
+		char *resultsub = new char[a_strlen > b_strlen ? a_strlen : b_strlen];
+		strcpy(resultsub, result + 1);
+		resultsub[a_strlen > b_strlen ? a_strlen : b_strlen] = 0;
+		return resultsub;
+	}
+}
 string bigNumberMultiply(string a_str, string b_str) {
 	int *result = new int[a_str.length() + b_str.length()]{ 0 }, *middle_result = new int[a_str.length() + 1];
 	int digit, carry = 0;
@@ -152,6 +277,47 @@ string bigNumberMultiply(string a_str, string b_str) {
 	}
 	return result_str;
 }
+char *bigNumberMultiply(char *a_str, char *b_str) {
+	int a_strlen = strlen(a_str), b_strlen = strlen(b_str);
+	int *result = new int[a_strlen + b_strlen]{ 0 }, *middle_result = new int[a_strlen + 1];
+	int digit, carry = 0;
+	for (int i = 0; i < b_strlen; i++) {
+		for (int j = 0; j < a_strlen; j++) {
+			digit = (a_str[a_strlen - 1 - j] - '0')*(b_str[b_strlen - 1 - i] - '0') + carry;
+			middle_result[a_strlen - j] = digit % 10;
+			carry = digit / 10;
+		}
+		middle_result[0] = carry;
+		/*for (int j = 0; j <= a_str.length(); j++)cout << middle_result[j];
+		cout << endl;*/
+
+		carry = 0;
+		for (int j = 0; j <= a_strlen; j++) {
+			digit = result[a_strlen + b_strlen - 1 - i - j] + middle_result[a_strlen - j] + carry;
+			result[a_strlen + b_strlen - 1 - i - j] = digit % 10;
+			carry = digit / 10;
+		}
+		/*for (int j = 0; j < a_str.length() + b_str.length(); j++)cout << result[j];
+		cout << endl;*/
+	}
+
+	/*将整型数组转成字符串*/
+	char *result_cstr;
+	if (result[0] != 0) {
+		result_cstr = new char[a_strlen + b_strlen];
+		for (int i = 0; i < a_strlen + b_strlen; i++)
+			result_cstr[i] = result[i] + '0';
+		result_cstr[a_strlen + b_strlen] = 0;
+	}
+	else
+	{
+		result_cstr = new char[a_strlen + b_strlen - 1];
+		for (int i = 1; i < a_strlen + b_strlen; i++)
+			result_cstr[i - 1] = result[i] + '0';
+		result_cstr[a_strlen + b_strlen - 1] = 0;
+	}
+	return result_cstr;
+}
 void bigNumber(){
 	string a_str, b_str;
 	cin >> a_str >> b_str;
@@ -167,10 +333,15 @@ void bigNumber(){
 		}*/
 
 	/*大数的加法和乘法*/
+	char *a_cstr = new char[a_str.length()], *b_cstr = new char[b_str.length()];
+	strcpy(a_cstr, a_str.c_str());
+	strcpy(b_cstr, b_str.c_str());
 	string multiply, plus;
-	plus = bigNumberPlus(a_str, b_str);
+	//plus = bigNumberPlus(a_str, b_str);
+	plus = bigNumberPlus(a_cstr, b_cstr);
 	cout << plus << endl;
-	multiply = bigNumberMultiply(a_str, b_str);
+	//multiply = bigNumberMultiply(a_str, b_str);
+	multiply = bigNumberMultiply(a_cstr, b_cstr);
 	cout << multiply << endl;
 }
 #pragma endregion
@@ -220,7 +391,7 @@ void WordBreak(){
 #pragma endregion
 
 #pragma region top k problem：找出前k大的数
-void SearchTopK() {
+void searchTopK() {
 	/*读取数据*/
 	/*int a[100],i=0;
 	while (cin.get()!='\n')cin >> a[i++];*/

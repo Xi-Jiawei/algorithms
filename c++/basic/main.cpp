@@ -209,6 +209,11 @@ int main()
 	n = 3276;
 	char *str = new char[20];
 	sprintf(str, "%d", n);*/
+
+    /*字符串拼接*/
+    string str, str1 = "hello ", str2 = "world";
+	str = str1 + str2;
+	cout << str << endl;
     #pragma endregion
 
     #pragma region 关键字inline（内联函数）
