@@ -10,6 +10,14 @@
 using namespace std;
 
 #include "strings.h"
+#pragma region 结构体
+typedef struct Packet {
+	uint8_t *buf;
+	uint32_t size;
+	uint32_t type;
+};
+#pragma endregion
+
 #pragma region 构造与析构
 class X
 {
@@ -38,7 +46,6 @@ public:
 	~Y() { cout << "destructor y" << endl; }
 };
 #pragma endregion
-
 
 #pragma region 继承
 //基类

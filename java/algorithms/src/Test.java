@@ -9,6 +9,19 @@ public class Test {
         //test.circling();
         //test.sumOfConsecutiveNumber();
         //test.bigNumber3();
+
+        /*金额大写转化*/
+        //System.out.println(test.money2capital(12034050670.89));
+
+        /*0-1背包*/
+        //test.knapsack();
+
+        /*石子合并（相邻合并，动态规划）*/
+        //test.stoneMerge2();
+        test.stoneMerge22();
+
+        /*石子合并（任意合并，贪心算法）*/
+        //test.stoneMerge();
     }
 
     /*(BJTU)查找n*n方阵中的数字
@@ -748,7 +761,8 @@ public class Test {
     }
 
     /*
-     *求mRNA的反密码子tRNA
+     *(BJTU)Infinity的mRNA
+     * 求mRNA的反密码子tRNA
      * */
     private void tRNA(){
         //System.out.println("请输入测试组数目T：");
@@ -782,5 +796,262 @@ public class Test {
             id = i + 1;
             System.out.println("Case #" + id + ": " + s);
         }
+    }
+
+    /*
+     *(BJTU)回文数
+     * 求第n个回文数
+     * */
+    private void palindromeNumber() {
+        System.out.println("请输入测试组数目T：");
+        Scanner scanner = new Scanner(System.in);
+        int T = scanner.nextInt(), n, temp, digit, digit_count[] = new int[]{0, 9, 9, 90, 90, 900, 900, 9000, 9000, 90000, 90000, 900000}, high_low, middle, j, remainder, hemi_digit = 0, floorhemi_digit = 0;
+        String result, hemi_str, invert_str;
+
+        for (int i = 0; i < T; i++) {
+            n = scanner.nextInt();
+            temp = n;
+            digit = 1;
+            //判断第n个回文数至少有几位
+            while (temp > digit_count[digit]) {
+                temp -= digit_count[digit];
+                digit++;
+            }
+            //System.out.println("temp"+temp);
+            //System.out.println("digit"+digit);
+            if (digit % 2 == 0) {
+                hemi_digit = digit / 2;
+                floorhemi_digit = hemi_digit;
+            } else {
+                hemi_digit = (digit + 1) / 2;
+                floorhemi_digit = hemi_digit - 1;
+            }
+
+            //System.out.println("hemi_digit"+hemi_digit);
+            //确认每一位数
+            high_low = (int) (temp / Math.pow(10, hemi_digit - 1)) + 1;//最高位和最低位
+            middle = (int) (temp % Math.pow(10, hemi_digit - 1)) - 1;//中间位
+            hemi_str = Integer.toString(high_low * (int) Math.pow(10, hemi_digit - 1) + middle);
+            invert_str = "";
+            for (j = 0; j < floorhemi_digit; j++) invert_str = hemi_str.charAt(j) + invert_str;
+            //System.out.println("hemi_str " + hemi_str);
+            //System.out.println("invert_str " + invert_str);
+            result = hemi_str + invert_str;
+            System.out.println(result);
+        }
+    }
+
+    /*(BJTU)课程集合（待完善）
+     * 题意
+     * 小刘所在的学校本学期共开设了60门课，并且每位同学会选修5门不同的课，小刘想知道是否存在一个3门课的集合，使得小刘所在班级有至少 p% 的同学选修了这三门课。
+     *
+     * 输入
+     * 第一行有一个整数 t (1≤t≤20)，表示有 t 组数据。
+     * 对于每组数据：
+     * 第一行有两个整数 n,p (2≤n≤100000,50≤p≤100)，n 表示小明班级的人数；
+     * 接下来的 n 行，每行有5个整数 ai (0≤ai≤59)表示该同学选修的课程号。
+     *
+     * 输出
+     * 对于每组数据，如果存在至少 p% 的同学选修相同的3门课程，输出一行“yes”，否则输出“no”。
+     * */
+
+    /*金额大写转化*/
+    private String money2capital(double money) {
+        String out="";
+        long moneyInteger = (long)Math.floor(money);
+        long moneyDecimal = (long)Math.floor((money - moneyInteger) * 100); // 精确到分
+        int[] moneyIntegerArr=new int[64];
+        int length, i = 0, j = 0;
+        String[] numberMap={ "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" },
+                integerUnitMap={ "元", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾", "佰", "仟", "万亿", "拾", "佰", "仟" },
+                decimalUnitMap={ "整", "角", "分", "厘" };
+        //整数部分
+        moneyIntegerArr[0] = (int)(moneyInteger % 10);
+        moneyInteger = moneyInteger / 10;
+        while (moneyInteger!=0) {
+            moneyIntegerArr[++i] = (int)(moneyInteger % 10);
+            moneyInteger = moneyInteger / 10;
+        }
+        length = i + 1;
+        for (i = length - 1; i >= 0; i--) {
+            if (moneyIntegerArr[i]==0) {
+                if (i == 8 || i == 4 || i == 0)
+                    out += integerUnitMap[i];
+                /*else if(amountIntegerArr[i-1])
+                    out += numberMap[0];*/
+                if (i!=0&&moneyIntegerArr[i - 1]!=0)
+                    out += numberMap[0];
+            }
+            else {
+                out += numberMap[moneyIntegerArr[i]] + integerUnitMap[i];
+            }
+        }
+        //小数部分
+        if (moneyDecimal!=0) {
+            int jiao = (int)(moneyDecimal / 10);
+            int fen = (int)(moneyDecimal % 10);
+            if (fen!=0) {
+                if (jiao!=0) out += numberMap[jiao] + decimalUnitMap[1] + numberMap[fen] + decimalUnitMap[2];
+                else out += numberMap[0] + numberMap[fen] + decimalUnitMap[2];
+            }
+            else out += numberMap[jiao] + decimalUnitMap[1];
+        }
+        else out += decimalUnitMap[0];
+
+        return out;
+    }
+
+    /*0-1背包*/
+    private void knapsack() {
+        /*Scanner scanner = new Scanner(System.in);
+        int m, n; // m表示背包容量，n表示n件物品
+        m = scanner.nextInt();
+        n = scanner.nextInt();
+        int[] w = new int[n], v = new int[n]; // w[]表示n件物品对应的重量，v[]表示n件物品对应的价值
+        int[][] f = new int[n][m]; // f[][]是状态表示数组，f[i+1][j]表示放入第i个物品时，背包容量为j的物品最大价值。注意第一行是初始化为0
+        for (int i = 0; i < n; i++) {
+            w[i] = scanner.nextInt();
+            v[i] = scanner.nextInt();
+        }*/
+        int m = 5, n = 3;
+        int[] w = {1, 2, 3};
+        int[] v = new int[]{6, 10, 12};
+        int[][] f = new int[4][6];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= m; j++) {
+                if (w[i] > j)
+                    f[i + 1][j] = f[i][j]; // 放不了第i件物品，所以f的当前解等于前一状态解
+                else
+                    //f[i + 1][j] = f[i][j - w[i]] + v[i] > f[i][j] ? f[i][j - w[i]] + v[i] : f[i][j];
+                    f[i + 1][j] = Math.max(f[i][j - w[i]] + v[i], f[i][j]);
+
+                System.out.print(f[i + 1][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("result: " + f[n][m]);
+    }
+
+    /*石子合并（任意合并，贪心算法）*/
+    private void stoneMerge(){
+        /*Scanner scanner = new Scanner(System.in);
+        int n; // n表示n件物品
+        n = scanner.nextInt();
+        int[] w = new int[n], f = new int[n]; // w[]表示n堆石子对应的重量，f[]标记石子堆是否已经被合并
+        for (int i = 0; i < n; i++)
+            w[i] = scanner.nextInt();*/
+        int n = 5;
+        int[] w = {3, 2, 5, 13, 7}, f = new int[n];
+
+        // 每次取最小的两堆合并
+        int sum=0, k=n, temp;
+        while (k>1){
+            for (int i= k-1; i >= k-2; i--)
+                for (int j= 0; j < i; j++)
+                    if(w[j]<w[j+1]){
+                        temp=w[j];
+                        w[j]=w[j+1];
+                        w[j+1]=temp;
+                    }
+
+            System.out.print("merge " + w[k-2] + " and " + w[k-1] + ": ");
+            w[k-2]+=w[k-1];
+            sum+=w[k-2];
+            k--;
+
+            for(int i=0;i<k-1;i++)
+                System.out.print(w[i]+",");
+            System.out.println(w[k-1]);
+        }
+
+        System.out.println("result: " + sum);
+    }
+
+    /*石子合并（相邻合并，动态规划）*/
+    private void stoneMerge2(){
+        /*Scanner scanner = new Scanner(System.in);
+        int n; // n表示n件物品
+        n = scanner.nextInt();
+        int[] w = new int[n]; // w[]表示n堆石子对应的重量
+        int[][] f = new int[n][n]; // f[][]是状态表示数组，f[i][j]表示第i堆到第j堆合并所花力气的最小值
+        for (int i = 0; i < n; i++)
+            w[i] = scanner.nextInt();*/
+        int n = 5;
+        int[] w = {3, 2, 5, 13, 7};
+        int[][] f = new int[5][5];
+
+        int m, i, j, sum, temp, mid; // m表示要合并石子的堆数，i表示要合并石子的起始堆，j表示要合并石子的结束堆，m=j-i+1
+        for (m = 2; m <= n; m++){
+            for (i = 0; i <= n-m; i++){
+                j = i+m-1;
+                sum=0;
+                for(int k=i;k<=j;k++)
+                    sum+=w[k]; // sum表示第i堆到第j堆的最后一次合并所花力气
+                f[i][j] = f[i][i]+f[i+1][j]+sum; // 状态初始化。假设第i堆到第j堆的最后一次合并是合并[i]和[i+1,i+2,…,j]这两组石子
+                mid=i;
+                for(int k=i+1;k<j;k++){
+                    temp = f[i][k]+f[k+1][j]+sum; // 假设第i堆到第j堆的最后一次合并是合并[i,i+1,…,k]和[k+1,k+2,…,j]这两组石子
+                    if(temp<f[i][j]) {
+                        f[i][j] = temp;
+                        mid=k;
+                    }
+                }
+
+                System.out.print("from " + i + " to " + j + ": [");
+                for(int k=i;k<mid;k++)
+                    System.out.print(k+",");
+                System.out.print(mid+"] and [");
+                for(int k=mid+1;k<j;k++)
+                    System.out.print(k+",");
+                System.out.println(j+"]");
+            }
+        }
+
+        System.out.println("result: " + f[0][n-1]);
+    }
+
+    /*石子合并（相邻合并，动态规划）
+    * 优化：先计算好sum*/
+    private void stoneMerge22(){
+        /*Scanner scanner = new Scanner(System.in);
+        int n; // n表示n件物品
+        n = scanner.nextInt();
+        int[] w = new int[n]; // w[]表示n堆石子对应的重量
+        int[][] f = new int[n][n]; // f[][]是状态表示数组，f[i][j]表示第i堆到第j堆合并所花力气的最小值
+        for (int i = 0; i < n; i++)
+            w[i] = scanner.nextInt();*/
+        int n = 5;
+        int[] w = {3, 2, 5, 13, 7}, a=new int[6]; // a[i]表示第0堆到i-1堆的总合
+        int[][] f = new int[5][5];
+
+        int m, i, j, sum, temp, mid; // m表示要合并石子的堆数，i表示要合并石子的起始堆，j表示要合并石子的结束堆，m=j-i+1
+        for (i = 0; i < n; i++)
+            a[i+1]=a[i]+w[i];
+        for (m = 2; m <= n; m++){
+            for (i = 0; i <= n-m; i++){
+                j = i+m-1;
+                sum=a[j+1]-a[i];// sum表示第i堆到第j堆的最后一次合并所花力气
+                f[i][j] = f[i][i]+f[i+1][j]+sum; // 状态初始化。假设第i堆到第j堆的最后一次合并是合并[i]和[i+1,i+2,…,j]这两组石子
+                mid=i;
+                for(int k=i+1;k<j;k++){
+                    temp = f[i][k]+f[k+1][j]+sum; // 假设第i堆到第j堆的最后一次合并是合并[i,i+1,…,k]和[k+1,k+2,…,j]这两组石子
+                    if(temp<f[i][j]) {
+                        f[i][j] = temp;
+                        mid=k;
+                    }
+                }
+
+                System.out.print("from " + i + " to " + j + ": [");
+                for(int k=i;k<mid;k++)
+                    System.out.print(k+",");
+                System.out.print(mid+"] and [");
+                for(int k=mid+1;k<j;k++)
+                    System.out.print(k+",");
+                System.out.println(j+"]");
+            }
+        }
+
+        System.out.println("result: " + f[0][n-1]);
     }
 }

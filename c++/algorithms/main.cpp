@@ -10,6 +10,9 @@
 #include <map>
 #include <set>
 #include <string>
+#include <ctime>
+#include <windows.h>
+#include <psapi.h>
 
 #include "sort.h"
 #include "algorithms.h"
@@ -27,7 +30,7 @@ using namespace std;
 
 int main()
 {
-	//std::cout << "Hello World!\n"; 
+	//std::cout << "Hello World!\n";
 
 	//stl_test();
 	//stack_test();
@@ -35,7 +38,7 @@ int main()
 	//heap_test();
 	//node_test();
 	//list_test();
-	//tree_test();
+	tree_test();
 
 	#pragma region 归并排序
 	/*int data[] = { 13,3,34,23,23,19,22,18,2,9,13,19,6 };
@@ -74,67 +77,99 @@ int main()
 		if (cin.get() == '\n')
 			break;
 	int *data = new int[length];
-	for (int i = 0; i < length; i++) data[i] = temp[i];
+	for (int i = 0; i < length; i++) data[i] = temp[i];*/
+	/*int length = 9;
+	int *data = new int[length] {3, 1, 2, 5, 13, 7, 9, 17, 12};*/
+	/*int length = 9;
+	int *data = new int[length] {1, 5, 2, 3, 6, 8, 8, 7, 4};
 
-	cout << "After sorted:" << endl;
+	printf("before sort: ");
+	for (int k = 0; k < length; k++)
+		printf("%d, ", data[k]);
+	printf("\n");
+
 	quick_sort(data, 0, length - 1);
+	cout << "after sort: ";
 	for (int i = 0; i < length; ++i)
 		cout << data[i] << "  ";
 	cout << endl;*/
 	#pragma endregion
 
-    #pragma region 最长不重复子串长度
-	/*int result=lengthOfLongestSubstring("adasdfasdf");
+    #pragma region 二分查找
+	/*//int n = 5, v = 4, a[5]{ 1, 2, 4, 4, 5 }, idx;
+	//int n = 5, v = 3, a[5]{ 1, 2, 4, 4, 5 }, idx;
+	//int n = 6, v = 4, a[6]{ 1, 4, 4, 5, 5, 6 }, idx;
+	//int n = 6, v = 3, a[6]{ 1, 4, 4, 5, 5, 6 }, idx;
+	//int n = 6, v = 5, a[6]{ 1, 4, 4, 5, 5, 6 }, idx;
+	//int n = 10, v = 7, a[10]{ 1,2,3,4,5,6,7,7,7,7 }, idx;
+	//int n = 10, v = 2, a[10]{ 1,1,2,3,7,7,7,9,9,10 }, idx;
+	//int n = 10, v = 5, a[10]{ 1,1,2,3,7,7,7,9,9,10 }, idx;
+	//int n = 10, v = 7, a[10]{ 1,1,2,3,7,7,7,9,9,10 }, idx;
+	//int n = 10, v = 7, a[10]{ 1,1,2,3,7,7,7,7,9,10 }, idx;
+	//int n = 10, v = 7, a[10]{ 1,1,2,3,7,7,7,7,7,10 }, idx;
+	int n = 11, v = 7, a[11]{ 1,1,2,3,7,7,7,7,7,9,10 }, idx;
+	//int n = 11, v = 7, a[11]{ 1,1,2,3,7,7,7,7,7,7,10 }, idx;
+	//idx = binary_search(v, a, n);
+	idx = binary_search2(v, a, n);
+	//idx = binary_search3(v, a, n);
+	idx = lower_bound(v, a, n);
+	idx = upper_bound(v, a, n);*/
+    #pragma endregion
+
+    #pragma region 最长不重复子串长度（未完成）
+	/*int result=length_of_longest_substring("adasdfasdf");
 	cout << result << endl;*/
     #pragma endregion
 	
     #pragma region 模式匹配
-	//patternMatching();
+	//pattern_matching();
     #pragma endregion
 
     #pragma region 删除字符串中的"ab"字符
-	//deleteString();
+	//delete_string();
     #pragma endregion
 
     #pragma region 大数的加法和乘法（a, b可能超integer和long的取值范围）
-	bigNumber();
+	//bignumber();
     #pragma endregion
 
     #pragma region top k problem
-	//searchTopK();
+	//search_top_k();
     #pragma endregion
 
     #pragma region 递归数组
-	//FibonacciSeq();
+	//fibonacci_seq();
     #pragma endregion
 
     #pragma region 质因数分解
-	//PrimeFactorization();
+	//prime_factorization();
     #pragma endregion
 
     #pragma region 最大公约数
-	//GreatestCommonFactor();
+	//greatest_common_factor();
     #pragma endregion
 
     #pragma region 最小公倍数
-	//LowestCommonMultiple();
+	//lowest_common_multiple();
     #pragma endregion
 
     #pragma region 字符统计
-	//CharCount();
+	//char_count();
     #pragma endregion
 
     #pragma region 阶乘求和
-	//FactorialSum();
+	//factorial_sum();
     #pragma endregion
 
     #pragma region 整数位数统计
-	//DigitCount();
+	//digit_count();
     #pragma endregion
 
     #pragma region 回文数
-	//PalindromeNumber();
+	//palindrome_number();
     #pragma endregion
+
+    #pragma region 腾讯笔试
 
     #pragma region 自实现strcpy
 	/*char* str=new char[10];
@@ -311,6 +346,177 @@ int main()
 		for (int i = 0; i < members.size(); i++)cout << members[i].data() << endl;
 	}*/
     #pragma endregion
+
+    #pragma endregion
+
+    #pragma region 统计x的二进制数中1的个数
+    /*int x = 9999, count;
+	count = count1ofx(x);
+	cout << count << endl;*/
+    #pragma endregion
+
+    #pragma region 图的深度优先遍历
+	/*int n = 5;
+	int **a = new int*[n], *b=new int[n]{ 0 };
+	for (int i = 0; i < n; i++) {
+		a[i] = new int[n] { 0 };
+		for (int j = 0; j < n; j++)
+			a[i][j] = i == j ? 0 : 10 * i + j;
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++)
+			cout << a[i][j] << " ";
+		cout << endl;
+	}
+	b[0] = 1;
+	dfs(a, b, n, 0);//起始点idx=0*/
+    #pragma endregion
+
+    #pragma region 图的广度优先遍历（未完成）
+    #pragma endregion
+
+    #pragma region 最短路径（有向带权图）
+    /*int n, t;
+	cin >> n;
+	int **a = new int*[n], **d = new int*[n], **p = new int*[n];
+	for (int i = 0; i < n; i++) {
+		a[i] = new int[n];
+		d[i] = new int[n];
+		p[i] = new int[n];
+		for (int j = 0; j < n; j++) {
+			cin >> t;
+			a[i][j] = t;
+		}
+	}
+	floyd(a, 4, d, p);*/
+    //int a[4][4]{ { 0,2,6,4 },{ 999,0,3,999 },{ 7,999,0,1 },{ 5,999,12,0 } }, d[4][4], p[4][4];
+	/*int **a = new int*[4], **d = new int*[4], **p = new int*[4];
+	a[0] = new int[4]{ 0,2,6,4 };
+	a[1] = new int[4]{ 999, 0, 3, 999 };
+	a[2] = new int[4]{ 7, 999, 0, 1 };
+	a[3] = new int[4]{ 5, 999, 12, 0 };
+	for (int i = 0; i < 4; i++) {
+		d[i] = new int[4];
+		p[i] = new int[4];
+	}
+	floyd(a, 4, d, p);*/
+
+    /*
+	      0
+		 /  \
+		1    \
+		\     \
+		 \      3
+		  \     /
+		   \   /
+			  /
+			 2
+	*/
+	/*int **a = new int*[4], *d = new int[4], *p = new int[4], *v = new int[4];
+	a[0] = new int[4]{ 0, 999, 999, 999 };
+	a[1] = new int[4]{ 1, 0, 999, 999 };
+	a[2] = new int[4]{ 7, 4, 0, 3 };
+	a[3] = new int[4]{ 3, 999, 999, 0 };
+	dijkstra(a, 4, 2, d, p, v);*/
+	/*int **a = new int*[6], *d = new int[6], *p = new int[6], *v = new int[6];
+	a[0] = new int[6]{ 0, 999, 10, 999, 30, 100 };
+	a[1] = new int[6]{ 999, 0, 5, 999, 999, 999 };
+	a[2] = new int[6]{ 999, 999, 0, 50, 999, 999 };
+	a[3] = new int[6]{ 999, 999, 999, 0, 999, 10 };
+	a[4] = new int[6]{ 999, 999, 999, 20, 0, 60 };
+	a[5] = new int[6]{ 999, 999, 999, 999, 999, 0 };
+	dijkstra(a, 6, 0, d, p, v);*/
+    #pragma endregion
+
+    #pragma region 最短哈密尔顿回路（旅行商问题，无向带权图）
+    //int **a = new int*[6]; // a[][]表示城市0~城市n的无向带权图的邻接矩阵
+	/*// 无回路
+	a[0] = new int[6]{ 0,   999, 10,  999, 30,  100 };
+	a[1] = new int[6]{ 999, 0,   5,   999, 999, 999 };
+	a[2] = new int[6]{ 10,  5,   0,   50,  999, 999 };
+	a[3] = new int[6]{ 999, 999, 50,  0,   20,  10 };
+	a[4] = new int[6]{ 30,  999, 999, 20,  0,   60 };
+	a[5] = new int[6]{ 100, 999, 999, 10,  60,  0 };*/
+	/*a[0] = new int[6]{ 0,   40, 10,  999, 30,  100 };
+	a[1] = new int[6]{ 40, 0,   5,   999, 999, 999 };
+	a[2] = new int[6]{ 10,  5,   0,   50,  999, 999 };
+	a[3] = new int[6]{ 999, 999, 50,  0,   20,  10 };
+	a[4] = new int[6]{ 30,  999, 999, 20,  0,   60 };
+	a[5] = new int[6]{ 100, 999, 999, 10,  60,  0 };
+	tsp(a, 5);*/
+	/*int **a = new int*[5];
+	a[0] = new int[5] { 0, 3, 999, 8, 9 };
+	a[1] = new int[5] { 3, 0, 3, 10, 5 };
+	a[2] = new int[5] { 999, 3, 0, 4, 3 };
+	a[3] = new int[5] { 8, 10, 4, 0, 20 };
+	a[4] = new int[5] { 9, 5, 3, 20, 0};
+	tsp(a, 4);*/
+	/*int **a = new int*[4];
+	a[0] = new int[4]{ 0, 2, 6, 5 };
+	a[1] = new int[4]{ 2, 0, 4, 4 };
+	a[2] = new int[4]{ 6, 4, 0, 2 };
+	a[3] = new int[4]{ 5, 4, 2, 0 };
+	tsp(a, 3);*/
+    #pragma endregion
+
+    #pragma region 回路（未完成）
+	/*vector<int> param;
+	vector<Point> edge;
+	param.push_back(4);
+	param.push_back(4);
+	edge.push_back(Point(1, 2));
+	edge.push_back(Point(2, 3));
+	edge.push_back(Point(3, 4));
+	edge.push_back(Point(4, 1));
+	cout << circuit(param, edge) << endl;*/
+	//[7,11],[(3,2),(5,1),(1,6),(6,4),(7,2),(7,4),(4,2),(1,3),(6,3),(3,7),(5,6)]
+	/*vector<int> param;
+	vector<Point> edge;
+	param.push_back(7);
+	param.push_back(11);
+	edge.push_back(Point(3, 2));
+	edge.push_back(Point(5, 1));
+	edge.push_back(Point(1, 6));
+	edge.push_back(Point(6, 4));
+	edge.push_back(Point(7, 2));
+	edge.push_back(Point(7, 4));
+	edge.push_back(Point(4, 2));
+	edge.push_back(Point(1, 3));
+	edge.push_back(Point(6, 3));
+	edge.push_back(Point(3, 7));
+	edge.push_back(Point(5, 6));
+	cout << circuit(param, edge) << endl;*/
+    #pragma endregion
+
+    #pragma region 算术编解码
+	//compress_uncompress_test();
+    #pragma endregion
+
+    #pragma region 金额大写转化
+	/*double money = 12034050670.89;
+	string out = "";
+	money2capital(out, money);*/
+    #pragma endregion
+
+    #pragma region 0-1背包
+	/*knapsack();*/
+    #pragma endregion
+
+    #pragma region 仓库问题（美团笔试，未完成）
+	//warehouse();
+    #pragma endregion
+
+    #pragma region 深信服笔试
+	/*查找两个字符串中那个有差别的字符*/
+	//find_diff_char("acdb", "adebc");
+	//find_diff_char("adebc", "acdb");
+	//find_diff_char("adecc", "acdc");
+
+	/*查找公共子串*/
+	//find_same_char("adecc", "acdbc");
+	/*string *chars = new string[3]{ "bella","label","roller" };
+	common_chars(chars, 3);*/
+    #pragma endregion
 }
 
 #pragma region stl容器测试
@@ -366,7 +572,7 @@ void stl_test() {
 	map.insert(make_pair("l", 12));
 	map.insert(make_pair("l", 1));
 	std::unordered_map<string, int>::iterator itr = map.find("i");
-	cout << itr->first << ' ' << itr->second << endl;
+	cout << itr->first << ' ' << itr->second << endl; // itr->first是key，itr->second是value
 	map.erase(itr);
 	map.erase("e");
 	for (itr = map.begin(); itr != map.end(); itr++)
@@ -512,6 +718,7 @@ void heap_test() {
 	for (int i = 0; i < k; i++) {
 		heapArray[i + 1] = a[i];
 		MinHeap::shift_up(heapArray, i + 1);
+		MinHeap::print(heapArray, i + 1);
 	}
 	//遍历其余的n-k个数与堆顶元素比较，调整小顶堆
 	for (int i = k; i < n; i++) {
@@ -519,6 +726,7 @@ void heap_test() {
 			heapArray[1] = a[i];
 			MinHeap::shift_down(heapArray, k);
 		}
+		MinHeap::print(heapArray, k);
 	}
 	for (int i = 1; i <= k; i++)
 		cout << heapArray[i] << endl;
@@ -572,7 +780,7 @@ void list_test() {
 	doublySortedList.remove(12);
 	doublySortedList.remove(14);*/
 
-	/*List list = List();
+	List list = List();
 	list.insert(3);
 	list.insert(14);
 	list.insert(2);
@@ -580,9 +788,11 @@ void list_test() {
 	list.insert(7);
 	Node* node = list.find(12);
 	list.remove(12);
-	list.remove(14);*/
+	list.remove(14);
+	list.reverse();
+	List reverseList = List::reverse(list);
 
-	DoublyList doublyList = DoublyList();
+	/*DoublyList doublyList = DoublyList();
 	doublyList.insert(3);
 	doublyList.insert(14);
 	doublyList.insert(2);
@@ -590,7 +800,7 @@ void list_test() {
 	doublyList.insert(7);
 	DoublyNode* Doublynode = doublyList.find(12);
 	doublyList.remove(12);
-	doublyList.remove(14);
+	doublyList.remove(14);*/
 }
 #pragma endregion
 
@@ -613,6 +823,20 @@ void tree_test() {
 	tree.preOrder();
 	tree.inOrder();
 	tree.postOrder();*/
+	/*BinaryTree<int> tree = BinaryTree<int>(1);
+	tree.insert(2, 1, 0);
+	tree.insert(6, 1, 1);
+	tree.insert(3, 2, 0);
+	tree.insert(4, 2, 1);
+	tree.insert(7, 6, 0);
+	tree.insert(8, 6, 1);
+	tree.insert(5, 4, 0);
+	tree.printTree();
+	tree.preOrder();
+	tree.inOrder();
+	tree.postOrder();
+	tree.levelOrder();
+	tree.dfs();*/
 
 	/*BinarySearchTree<int> tree;
 	tree.insert(3);
@@ -629,9 +853,12 @@ void tree_test() {
 	//node = tree.removeMin();
 	//tree.remove(5);
 	tree.remove(13);
+	tree.printTree();
 	tree.preOrder();
 	tree.inOrder();
-	tree.postOrder();*/
+	tree.postOrder();
+	tree.levelOrder();
+	tree.dfs();*/
 
 	/*BalanceBinaryTree<int> tree;
 	tree.insert(3);
@@ -650,7 +877,9 @@ void tree_test() {
 	tree.printTree();
 	cout << endl;
 	tree.insert(12);
-	tree.printTree();*/
+	tree.printTree();
+	tree.levelOrder();
+	tree.dfs();*/
 
 	/*RedBlackTree<int> tree;
 	tree.insert(3);
@@ -673,6 +902,16 @@ void tree_test() {
 	cout << endl;
 	tree.insert(8);
 	tree.printTree();*/
+	/*RedBlackTree<int> tree;
+	tree.insert(3);
+	tree.insert(2);
+	tree.insert(5);
+	tree.insert(13);
+	tree.insert(7);
+	tree.insert(17);
+	tree.printTree();
+	tree.levelOrder();
+	tree.dfs();*/
 	/*tree.insert(7);
 	tree.insert(3);
 	tree.insert(13);
@@ -744,8 +983,8 @@ void tree_test() {
 	tree.remove(3);//delete root, case4
 	tree.printTree();*/
 
-    BalanceTree<int> tree = BalanceTree<int>(4);
-	/*tree.insert(3);
+	/*BalanceTree<int> tree = BalanceTree<int>(4);
+	tree.insert(3);
 	cout << "insert 2" << endl;
 	tree.insert(2);
 	tree.levelOrder();
@@ -776,7 +1015,7 @@ void tree_test() {
 	cout << "insert 11" << endl;
 	tree.insert(11);
 	tree.levelOrder();*/
-	/*tree = BalanceTree<int>(5);
+	/*BalanceTree<int> tree = BalanceTree<int>(5);
 	tree.insert(3);
 	cout << "insert 7" << endl;
 	tree.insert(7);
@@ -869,18 +1108,19 @@ void tree_test() {
 	cout << "remove 4" << endl;
 	tree.remove(4);
 	tree.levelOrder();*/
-	int m, data, a[] = { 1,3,7,14,8,5,11,17,13,6,12,20,23,26,4,16,18,24,25,19 };
-	//int m, data, a[] = { 39,22,97,41,53,13,21,40,30,27,33,36,35,34,24,29,26,17,28,23,31,32 };
-    tree = BalanceTree<int>(5);
+	/*BalanceTree<int> tree = BalanceTree<int>(5);
 	for(int i=1;i<=32;i++)
 		tree.insert(i);
-	tree.levelOrder();
-	/*tree = BalanceTree<int>(5);
+	tree.levelOrder();*/
+	/*BalanceTree<int> tree = BalanceTree<int>(5);
+	int m, data, a[] = { 1,3,7,14,8,5,11,17,13,6,12,20,23,26,4,16,18,24,25,19 };
+	//int m, data, a[] = { 39,22,97,41,53,13,21,40,30,27,33,36,35,34,24,29,26,17,28,23,31,32 };
 	//int size = end(a) - begin(a);//头指针与尾指针的差即数组长度。注：同类型的指针的差，与类型无关
 	int size = sizeof(a) / sizeof(a[0]);
 	for (int i = 0; i < size; i++)
 		tree.insert(a[i]);
-	tree.levelOrder();*/
+	tree.levelOrder();
+	tree.dfs();*/
 	/*cout << "输入b树阶数：";
 	cin >> m;
 	tree = BalanceTree<int>(m);
@@ -892,14 +1132,489 @@ void tree_test() {
 		tree.insert(data);
 		tree.levelOrder();
 	}*/
-	while (true)
+	/*while (true)
 	{
 		cout << "删除 ";
 		cin >> data;
 		if (data == -1)break;
 		tree.remove(data);
 		tree.levelOrder();
+	}*/
+
+	/*Trie tree = Trie();
+	tree.insert("inn");
+	tree.insert("int");
+	tree.insert("kit");
+	tree.insert("kitchen");
+	tree.insert("kite");
+	tree.insert("kit");
+	tree.insert("knee");
+	tree.insert("kneel");
+	tree.dfs();*/
+	/*Trie tree = Trie();
+	string strArray[8]{ "inn", "int", "kit", "kitchen", "kite", "kit", "knee", "kneel" };
+	for (int i = 0; i < 8; i++)
+		tree.insert(strArray[i]);
+	tree.dfs();*/
+	/*PrefixTrie tree = PrefixTrie();
+	tree.insert("inn");
+	tree.insert("int");
+	tree.insert("kit");
+	tree.insert("kitchen");
+	tree.insert("kite");
+	tree.insert("knee");
+	tree.insert("kneel");
+	tree.dfs();*/
+    /*HDOJ 1251*/
+	/*PrefixTrie tree = PrefixTrie();
+	tree.insert("banana");
+	tree.insert("band");
+	tree.insert("bee");
+	tree.insert("absolute");
+	tree.insert("acm");
+	cout << tree.find("ba") << endl;
+	cout << tree.find("b") << endl;
+	cout << tree.find("band") << endl;
+	cout << tree.find("abc") << endl;*/
+	/*POJ 2001 Shortest Prefixes*/
+	/*PrefixTrie tree = PrefixTrie();
+	tree.insert("banana");
+	tree.insert("band");
+	tree.insert("bee");
+	tree.insert("absolute");
+	tree.insert("acm");
+	cout << tree.find("ba") << endl;
+	cout << tree.find("b") << endl;
+	cout << tree.find("band") << endl;
+	cout << tree.find("abc") << endl;
+	char *str = tree.findDistinct("banana");
+	str = tree.findDistinct("band");
+	str = tree.findDistinct("bee");
+	str = tree.findDistinct("absolute");
+	str = tree.findDistinct("acm");*/
+	/*PrefixTrie tree = PrefixTrie();
+	int size = 12;
+	char **strArray = new char*[size] {
+		"carbohydrate",
+		"cart",
+		"carburetor",
+		"caramel",
+		"caribou",
+		"carbonic",
+		"cartilage",
+		"carbon",
+		"carriage",
+		"carton",
+		"car",
+		"carbonate"
+	};
+	for(int i=0;i<size;i++)
+		tree.insert(strArray[i]);
+	for (int i = 0; i < size; i++)
+		cout << strArray[i] << " " << tree.findDistinct(strArray[i]) << endl;*/
+    /*PrefixTrie tree = PrefixTrie();
+    string strArray[1001];
+	int i = 0;
+	while (cin >> strArray[i]) // ctrl+z结束输入
+		tree.insert(strArray[i++]);
+	for (int j = 0; j < i; j++)
+		cout << strArray[j] << " " << tree.findDistinct(strArray[j]) << endl;*/
+    /*HashTrie tree = HashTrie();
+	tree.insert("inn");
+	tree.insert("int");
+	tree.insert("kit");
+	tree.insert("kitchen");
+	tree.insert("kite");
+	tree.insert("kit");
+	tree.insert("knee");
+	tree.insert("kneel");
+	tree.dfs();*/
+    /*#define BUFFER_SIZE 1024
+    #define BUFFER_PADDING_SIZE 64
+    HashTrie tree = HashTrie();
+	FILE *freader;
+	char *buffer = (char*)malloc(BUFFER_SIZE + BUFFER_PADDING_SIZE);
+	memset(buffer + BUFFER_SIZE, 0, BUFFER_PADDING_SIZE);
+	char *filename = "D:\\Users\\veev\\BigData\\userBehaviors";
+	freader = fopen(filename, "rb");
+	if (!freader) {
+		fprintf(stderr, "Could not open %s\n", filename);
+		exit(1);
 	}
+	char *strArray;
+	while (!feof(freader) && NULL != fgets(buffer, BUFFER_SIZE, freader)) {
+		strArray = strtok(buffer, "\1"); // 以"u0001"分割，取第1个
+		strArray = strtok(NULL, "\1"); // 以"u0001"分割，取第2个
+		tree.insert(strArray);
+	}
+	fclose(freader);
+	tree.dfs();*/
+    /*#define DEBUG_MODE 0
+    #define BUFFER_SIZE 1024
+    #define BUFFER_PADDING_SIZE 64
+	HashTrie tree = HashTrie();
+	FILE *freader, *fwriter;
+	char *buffer = (char*)malloc(BUFFER_SIZE + BUFFER_PADDING_SIZE);
+	memset(buffer + BUFFER_SIZE, 0, BUFFER_PADDING_SIZE);
+	char *filename = "D:\\Users\\veev\\BigData\\userBehaviors";
+	char *outfilename = "D:\\Users\\veev\\BigData\\userBehaviorsCountByTrie";
+	freader = fopen(filename, "rb");
+	if (!freader) {
+		fprintf(stderr, "Could not open %s\n", filename);
+		exit(1);
+	}
+	fwriter = fopen(outfilename, "wb");
+
+	long long start_memsize, end_memsize;
+	HANDLE handle = GetCurrentProcess();
+	PROCESS_MEMORY_COUNTERS pmc;
+	GetProcessMemoryInfo(handle, &pmc, sizeof(pmc));
+	start_memsize = pmc.WorkingSetSize / 1024;
+	clock_t start_time, end_time;
+	start_time = clock();
+	char *strArray, *size = new char[20], *wordcount = new char[20], *nodecount = new char[20], *memusage = new char[20], *timecost = new char[20];
+	while (!feof(freader) && NULL!=fgets(buffer, BUFFER_SIZE, freader)) {
+		strArray = strtok(buffer, "\1"); // 以"u0001"分割，取第1个
+		strArray = strtok(NULL, "\1"); // 以"u0001"分割，取第2个
+		tree.insert(strArray);
+
+        #if DEBUG_MODE==1
+		end_time = clock();
+		if ((end_time - start_time) / CLOCKS_PER_SEC > 3)break;
+        #endif
+	}
+	fclose(freader);
+
+	// 统计树字符串数（含重复字符串）
+	fwrite("size of the trie: ", 1, 18, fwriter);
+	sprintf(size, "%lld", tree.size());
+	fwrite(size, 1, strlen(size), fwriter);
+	fwrite("\n", 1, 1, fwriter);
+
+	// 统计树单词数（不含重复单词）
+	fwrite("word count of the trie: ", 1, 24, fwriter);
+	sprintf(wordcount, "%lld", tree.wordcount());
+	fwrite(wordcount, 1, strlen(wordcount), fwriter);
+	fwrite("\n", 1, 1, fwriter);
+
+	// 统计树结点数
+	fwrite("node count of the trie: ", 1, 24, fwriter);
+	sprintf(nodecount, "%lld", tree.nodecount());
+	fwrite(nodecount, 1, strlen(nodecount), fwriter);
+	fwrite("\n", 1, 1, fwriter);
+
+	// 获取内存占用
+	fwrite("memory usage of the trie construction: ", 1, 39, fwriter);
+	//int size = sizeof(HashTrieNode);
+	//size = sizeof(unordered_map<char, int>);
+	//size = sizeof(unordered_map<char, HashTrieNode*>);
+	//size = sizeof(map<char, int>);
+	//size = sizeof(map<char, HashTrieNode*>);
+	//sprintf(nodecount, "%lld", tree.nodecount() * sizeof(HashTrieNode));
+	//fwrite(nodecount, 1, strlen(nodecount), fwriter);
+	GetProcessMemoryInfo(handle, &pmc, sizeof(pmc));
+	end_memsize = pmc.WorkingSetSize / 1024;
+	sprintf(memusage, "%lld", end_memsize - start_memsize);
+	fwrite(memusage, 1, strlen(memusage), fwriter);
+	fwrite("KB\n", 1, 3, fwriter);
+
+	// 计算时间耗费
+	end_time = clock();
+	fwrite("time cost of the trie construction: ", 1, 36, fwriter);
+	sprintf(timecost, "%f", (double)((end_time - start_time) / CLOCKS_PER_SEC));
+	fwrite(timecost, 1, strlen(timecost), fwriter);
+	fwrite("s\n", 1, 2, fwriter);
+	fflush(fwriter);
+
+	// 遍历并写入文件
+	tree.dfs(fwriter);
+
+	// 总的时间耗费
+	end_time = clock();
+	fwrite("total time cost: ", 1, 17, fwriter);
+	sprintf(timecost, "%f", (double)((end_time - start_time) / CLOCKS_PER_SEC));
+	fwrite(timecost, 1, strlen(timecost), fwriter);
+	fwrite("s\n", 1, 2, fwriter);
+	fclose(fwriter);*/
+
+	/*BPlusTree<int> tree = BPlusTree<int>(4);
+	tree.insert(3);
+	cout << "insert 2" << endl;
+	tree.insert(2);
+	tree.levelOrder();
+	cout << "insert 5" << endl;
+	tree.insert(5);
+	tree.levelOrder();
+	cout << "insert 13" << endl;
+	tree.insert(13);
+	tree.levelOrder();
+	cout << "insert 7" << endl;
+	tree.insert(7);
+	tree.levelOrder();
+	cout << "insert 9" << endl;
+	tree.insert(9);
+	tree.levelOrder();
+	cout << "insert 17" << endl;
+	tree.insert(17);
+	tree.levelOrder();
+	cout << "insert 12" << endl;
+	tree.insert(12);
+	tree.levelOrder();
+	cout << "insert 1" << endl;
+	tree.insert(1);
+	tree.levelOrder();
+	cout << "insert 4" << endl;
+	tree.insert(4);
+	tree.levelOrder();
+	cout << "insert 11" << endl;
+	tree.insert(11);
+	tree.levelOrder();
+	cout << "remove 13" << endl;
+	tree.remove(13);
+	tree.levelOrder();
+	cout << "remove 17" << endl;
+	tree.remove(17);
+	tree.levelOrder();
+	cout << "remove 9" << endl;
+	tree.remove(9);
+	tree.levelOrder();
+	cout << "remove 11" << endl;
+	tree.remove(11);
+	tree.levelOrder();
+	cout << "remove 3" << endl;
+	tree.remove(3);
+	tree.levelOrder();
+	tree.dfs();
+	BPlusTreeNode<int> *node;
+	node = tree.find(7);
+	node = tree.find(12);
+	tree.printData();*/
+    /*int a[]{ 5, 8, 10, 15, 16, 17, 18, 6, 9, 19, 20, 21, 22, 7 };
+	int size = sizeof(a) / sizeof(a[0]);
+	BPlusTree<int> tree = BPlusTree<int>(5);
+	for (int i = 0; i < size; i++) {
+		cout << "insert " << a[i] << endl;
+		tree.insert(a[i]);
+		tree.levelOrder();
+	}
+	cout << "insert 23" << endl;
+	tree.insert(23);
+	tree.levelOrder();
+	cout << "insert 24" << endl;
+	tree.insert(24);
+	tree.levelOrder();
+	cout << "insert 25" << endl;
+	tree.insert(25);
+	tree.levelOrder();
+	cout << "insert 26" << endl;
+	tree.insert(26);
+	tree.levelOrder();
+	cout << "insert 27" << endl;
+	tree.insert(27);
+	tree.levelOrder();
+	cout << "insert 28" << endl;
+	tree.insert(28);
+	tree.levelOrder();
+	cout << "insert 29" << endl;
+	tree.insert(29);
+	tree.levelOrder();
+	cout << "remove 22" << endl;
+	tree.remove(22);
+	tree.levelOrder();
+	cout << "remove 15" << endl;
+	tree.remove(15);
+	tree.levelOrder();
+	cout << "remove 7" << endl;
+	tree.remove(7);
+	tree.levelOrder();
+	tree.dfs();
+	BPlusTreeNode<int> *node;
+	node = tree.find(7);
+	tree.printData();*/
+	/*int a[] {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
+	int size = sizeof(a) / sizeof(a[0]);
+	BPlusTree<int> tree = BPlusTree<int>(4);
+	for (int i = 0; i < size; i++) {
+		cout << "insert " << a[i] << endl;
+		tree.insert(a[i]);
+		tree.levelOrder();
+	}
+	cout << "insert 11" << endl;
+	tree.insert(11);
+	tree.levelOrder();
+	cout << "insert 12" << endl;
+	tree.insert(12);
+	tree.levelOrder();
+	cout << "remove 9" << endl;
+	tree.remove(9);
+	tree.levelOrder();
+	cout << "remove 7" << endl;
+	tree.remove(7);
+	tree.levelOrder();
+	cout << "remove 8" << endl;
+	tree.remove(8);
+	tree.levelOrder();
+	tree.dfs();
+	BPlusTreeNode<int> *node;
+	node = tree.find(7);
+	tree.printData();*/
+	/*int a[]{ 1, 16, 4, 25, 9, 20, 13, 15, 10, 11, 12 };
+	int size = sizeof(a) / sizeof(a[0]);
+	BPlusTree<int> tree = BPlusTree<int>(4);
+	for (int i = 0; i < size; i++) {
+		cout << "insert " << a[i] << endl;
+		tree.insert(a[i]);
+		tree.levelOrder();
+	}
+	cout << "remove 13" << endl;
+	tree.remove(13);
+	tree.levelOrder();
+	cout << "remove 15" << endl;
+	tree.remove(15);
+	tree.levelOrder();
+	cout << "remove 1" << endl;
+	tree.remove(1);
+	tree.levelOrder();
+	tree.dfs();
+	BPlusTreeNode<int> *node;
+	node = tree.find(7);
+	tree.printData();*/
+
+	/*BalancePlusTree<int> tree = BalancePlusTree<int>(3);
+	tree.insert(3);
+	cout << "insert 2" << endl;
+	tree.insert(2);
+	tree.levelOrder();
+	cout << "insert 5" << endl;
+	tree.insert(5);
+	tree.levelOrder();
+	cout << "insert 13" << endl;
+	tree.insert(13);
+	tree.levelOrder();
+	cout << "insert 7" << endl;
+	tree.insert(7);
+	tree.levelOrder();
+	cout << "insert 9" << endl;
+	tree.insert(9);
+	tree.levelOrder();
+	cout << "insert 17" << endl;
+	tree.insert(17);
+	tree.levelOrder();
+	cout << "insert 12" << endl;
+	tree.insert(12);
+	tree.levelOrder();
+	cout << "insert 1" << endl;
+	tree.insert(1);
+	tree.levelOrder();
+	cout << "insert 4" << endl;
+	tree.insert(4);
+	tree.levelOrder();
+	cout << "insert 11" << endl;
+	tree.insert(11);
+	tree.levelOrder();
+	cout << "remove 13" << endl;
+	tree.remove(13);
+	tree.levelOrder();
+	cout << "remove 17" << endl;
+	tree.remove(17);
+	tree.levelOrder();
+	cout << "remove 9" << endl;
+	tree.remove(9);
+	tree.levelOrder();
+	cout << "remove 11" << endl;
+	tree.remove(11);
+	tree.levelOrder();
+	cout << "remove 3" << endl;
+	tree.remove(3);
+	tree.levelOrder();
+	tree.dfs();
+	BalancePlusTreeNode<int> *node;
+	node = tree.find(7);
+	node = tree.find(12);
+	tree.printData();*/
+    /*float a[]{ 10, 20, 30, 7, 8, 25, 6, 7.5, 12, 13, 6.5 };
+	int size = sizeof(a) / sizeof(a[0]);
+	BalancePlusTree<float> tree = BalancePlusTree<float>(3);
+	for (int i = 0; i < size; i++) {
+		cout << "insert " << a[i] << endl;
+		tree.insert(a[i]);
+		tree.levelOrder();
+	}
+	cout << "remove 12" << endl;
+	tree.remove(12);
+	tree.levelOrder();
+	cout << "remove 13" << endl;
+	tree.remove(13);
+	tree.levelOrder();
+	cout << "remove 7.5" << endl;
+	tree.remove(7.5);
+	tree.levelOrder();
+	cout << "remove 6" << endl;
+	tree.remove(6);
+	tree.levelOrder();
+	cout << "remove 8" << endl;
+	tree.remove(8);
+	tree.levelOrder();
+	cout << "remove 10" << endl;
+	tree.remove(10);
+	tree.levelOrder();
+	tree.dfs();
+	BalancePlusTreeNode<float> *node;
+	node = tree.find(7);
+	tree.printData();*/
+
+	/*BalancePlusProTree<int> tree = BalancePlusProTree<int>(3);
+	tree.insert(3);
+	cout << "insert 2" << endl;
+	tree.insert(2);
+	tree.levelOrder();
+	cout << "insert 5" << endl;
+	tree.insert(5);
+	tree.levelOrder();
+	cout << "insert 13" << endl;
+	tree.insert(13);
+	tree.levelOrder();
+	cout << "insert 7" << endl;
+	tree.insert(7);
+	tree.levelOrder();
+	cout << "insert 9" << endl;
+	tree.insert(9);
+	tree.levelOrder();
+	cout << "insert 17" << endl;
+	tree.insert(17);
+	tree.levelOrder();
+	cout << "insert 12" << endl;
+	tree.insert(12);
+	tree.levelOrder();
+	cout << "insert 1" << endl;
+	tree.insert(1);
+	tree.levelOrder();
+	cout << "insert 4" << endl;
+	tree.insert(4);
+	tree.levelOrder();
+	cout << "insert 11" << endl;
+	tree.insert(11);
+	tree.levelOrder();
+	cout << "remove 13" << endl;
+	tree.remove(13);
+	tree.levelOrder();
+	cout << "remove 17" << endl;
+	tree.remove(17);
+	tree.levelOrder();
+	cout << "remove 9" << endl;
+	tree.remove(9);
+	tree.levelOrder();
+	cout << "remove 11" << endl;
+	tree.remove(11);
+	tree.levelOrder();
+	cout << "remove 3" << endl;
+	tree.remove(3);
+	tree.levelOrder();
+	tree.dfs();
+	BalancePlusProTreeNode<int> *node;
+	node = tree.find(7);
+	node = tree.find(12);
+	tree.printData();*/
 }
 #pragma endregion
 

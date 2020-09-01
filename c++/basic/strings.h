@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <stdarg.h>
+#include <string>
 using namespace std;
 
 #pragma region ×Ö·û´®Æ´½Ó

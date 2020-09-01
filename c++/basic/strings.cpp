@@ -1,7 +1,7 @@
 #include "strings.h"
 
 #pragma region ×Ö·û´®Æ´½Ó
-/*char *string_concat(int count, ...) {
+char *string_concat(int count, ...) {
 	int size = 0;
 	char *param;
 	vector<char*> paramList;
@@ -27,7 +27,7 @@
 	result[address] = 0;
 
 	return result;
-}*/
+}
 
 char *string_concat(vector<char*> params) {
 	int size = 0;

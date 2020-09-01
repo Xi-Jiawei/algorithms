@@ -245,6 +245,21 @@ Node* List::find(int value) {
 	return current;
 }
 
+void List::reverse() {
+	Node *previous = NULL;
+	Node *current = this->first;
+	Node *next;
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = previous;
+		previous = current;
+		current = next;
+	}
+
+	this->first = previous;
+}
+
 int List::size() {
 	return this->m_size;
 }

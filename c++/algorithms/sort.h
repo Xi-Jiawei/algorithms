@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #pragma once
 void merge_sort(int *data, int start, int end, int *result);
 

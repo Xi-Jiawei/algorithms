@@ -62,6 +62,7 @@ void merge_sort(int *data, int first, int last, int *result) {
 #pragma endregion
 
 #pragma region ¿ìËÙÅÅĞò
+static int time = 0;
 void quick_sort(int* data, int first, int last) {
 	if (first < last)
 	{
@@ -78,8 +79,19 @@ void quick_sort(int* data, int first, int last) {
 				++i;
 			}
 			data[j] = data[i];
+
+			printf("from data[%d] to data[%d]: ", first, last);
+			for (int k = first; k <= last; k++)
+				printf("%d, ", data[k]);
+			printf("\n");
 		}
 		data[i] = key;
+
+		printf("after %d sort, from data[%d] to data[%d]: ", time++, first, last);
+		for (int k = first; k <= last; k++)
+			printf("%d, ", data[k]);
+		printf("\n");
+
 		quick_sort(data, first, i - 1);
 		quick_sort(data, i + 1, last);
 	}
