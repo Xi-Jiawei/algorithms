@@ -1389,7 +1389,7 @@ void tree_test() {
 	node = tree.find(7);
 	node = tree.find(12);
 	tree.printData();*/
-    /*int a[]{ 5, 8, 10, 15, 16, 17, 18, 6, 9, 19, 20, 21, 22, 7 };
+    int a[]{ 5, 8, 10, 15, 16, 17, 18, 6, 9, 19, 20, 21, 22, 7 };
 	int size = sizeof(a) / sizeof(a[0]);
 	BPlusTree<int> tree = BPlusTree<int>(5);
 	for (int i = 0; i < size; i++) {
@@ -1430,7 +1430,7 @@ void tree_test() {
 	tree.dfs();
 	BPlusTreeNode<int> *node;
 	node = tree.find(7);
-	tree.printData();*/
+	tree.printData();
 	/*int a[] {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
 	int size = sizeof(a) / sizeof(a[0]);
 	BPlusTree<int> tree = BPlusTree<int>(4);

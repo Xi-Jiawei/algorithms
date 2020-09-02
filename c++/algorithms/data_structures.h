@@ -2938,12 +2938,12 @@ private:
 			return findNode(treeNode->child[treeNode->count], data);
 		}
 	}
-	/*删除结点，如不满足最少关键字要求，则合并兄弟结点。注：枝结点中可能包含被删除元素的键值，参数level记录包含该元素键值的父结点的level，如果level>1表示父结点包含被删除元素的键值，需要更新该父结点键值；如果level=1表示父结点不包含被删除元素的键值*/
-	void removeNode(BPlusTreeNode<Type> *&treeNode, Type data, int level) {
+	/*删除结点，如不满足最少关键字要求，则合并兄弟结点。注：枝结点中可能包含被删除元素的键值，参数treeBranchNode和index记录包含该元素的枝结点及其键值位置，如果treeBranchNod==NULL表示枝结点不包含被删除元素的键值，不需要更新枝结点键值；如果treeBranchNode->level>2则需要更新该枝结点键值*/
+	void removeNode(BPlusTreeNode<Type> *&treeNode, Type data, BPlusTreeNode<Type> *treeBranchNode, int index) {
 		if (treeNode->level == 1)
 		{
-			/*如果当前结点是叶子结点，考虑当前结点关键字数是否大于下限min
-			1.如果当前结点关键字数大于下限min，则直接删除
+			/*实际删除应在叶子结点，考虑当前叶子结点关键字数是否大于下限min
+			1.如果当前结点关键字数大于下限min，则直接删除，并更新父结点
 			2.否则，考虑其左右兄弟结点的关键字数是否大于下限min。如果其左右兄弟结点的关键字数不全为下限，则从其中关键字数大于下限的兄弟结点借一个元素；如果其左右兄弟结点的关键字数刚好都为下限，则与其中一个兄弟结点合并，并向上递归*/
 			int i;
 			for (i = 0; i < treeNode->count; i++) {
@@ -2957,32 +2957,31 @@ private:
 					treeNode->data[j] = treeNode->data[j + 1];
 				treeNode->count--;
 
-				// 如果被删元素是第1个且当前结点将被删元素删除后剩余元素个数大于零，更新父结点最值；否则不更新父结点最值
-				if (!i && treeNode->count) {
-					int l = level;
-					BPlusTreeNode<Type> *node = treeNode;
-					while (l-- > 2)
-						node = node->parent;
-					int index;
-					for (index = 0; index <= node->parent->count; index++) {
-						if (node->parent->child[index] == node)
-							break;
+				// 如果枝结点的关键字包含被删除元素，则更新该枝结点最值
+				if (NULL!=treeBranchNode) {
+					if (treeBranchNode->level == 2 && treeNode->count >= min) { // 如果在层级等于2的枝结点的关键字包含被删除元素，且当前叶子结点删除元素后关键字数大于等于下限min，说明可以根据当前叶子结点现在的第一个元素更新该枝结点最值
+						treeBranchNode->data[index] = treeNode->data[0];
 					}
-					if (index > 0)
-						node->parent->data[index - 1] = treeNode->data[0];
+					if (treeBranchNode->level > 2) { // 如果在层级大于2的枝结点的关键字包含被删除元素，说明当前叶子结点在父结点的子结点集合中是第一个，则需要根据右兄弟结点或当前当前叶子结点更新该枝结点最值
+						if (!treeNode->count) // 如果当前叶子结点将被删元素删除后剩余元素个数等于零，说明当前元素需要向右兄弟结点借调元素，那么根据右兄弟结点第一个元素更新该枝结点最值
+							treeBranchNode->data[index] = treeNode->brother->data[0];
+						else // 否则根据当前叶子结点现在的第一个元素更新该枝结点最值
+							treeBranchNode->data[index] = treeNode->data[0];
+					}
 				}
-				if (root == treeNode || treeNode->count >= min) {
+
+				if (root == treeNode || treeNode->count >= min) { // 当前叶子结点删除元素后关键字数大于等于下限min，则直接退出返回
 					this->m_size--;
 					return;
 				}
-				else
-				{
-					int index;
-					for (index = 0; index <= treeNode->parent->count; index++) {
-						if (treeNode->parent->child[index] == treeNode)
+				else { // 否则需要向左右兄弟结点借调元素，或合并左右兄弟结点
+					int idx;
+					for (idx = 0; idx <= treeNode->parent->count; idx++) {
+						if (treeNode->parent->child[idx] == treeNode)
 							break;
 					}
-					merge(treeNode, index, level);
+					merge(treeNode, idx);
+					return;
 				}
 			}
 		}
@@ -2990,15 +2989,18 @@ private:
 		{
 			int i;
 			for (i = 0; i < treeNode->count; i++) {
-				if (treeNode->data[i] == data)level = treeNode->level;
+				if (treeNode->data[i] == data) {
+					treeBranchNode = treeNode;
+					index = i;
+				}
 				if (treeNode->data[i] > data)
 					break;
 			}
-			removeNode(treeNode->child[i], data, level);
+			removeNode(treeNode->child[i], data, treeBranchNode, index);
 		}
 	}
-	/*合并兄弟结点，参数说明：参数treeNode表示当前要合并的结点，参数index表示treeNode在父结点中的位置，参数level由removeNode方法传入，level记录包含被删除元素键值的父结点的level*/
-	void merge(BPlusTreeNode<Type> *treeNode, int index, int level){
+	/*合并兄弟结点，参数说明：参数treeNode表示当前要合并的结点，参数index表示treeNode在父结点中的位置*/
+	void merge(BPlusTreeNode<Type> *treeNode, int index){
 		if (treeNode->level == 1) {
 			if (index > 0 && treeNode->parent->child[index - 1]->count > min) {
 				for (int i = treeNode->count - 1; i >= 0; i--)
@@ -3006,43 +3008,15 @@ private:
 				treeNode->parent->data[index - 1] = treeNode->data[0] = treeNode->parent->child[index - 1]->data[treeNode->parent->child[index - 1]->count - 1];
 				treeNode->parent->child[index - 1]->count--;
 				treeNode->count++;
-
-				// 更新父结点最值
-				BPlusTreeNode<Type> *node = treeNode;
-				while (level-- > 2)
-					node = node->parent;
-				int index;
-				for (index = 0; index <= node->parent->count; index++) {
-					if (node->parent->child[index] == node)
-						break;
-				}
-				if (index > 0)
-					node->parent->data[index - 1] = treeNode->data[0];
-
 				return;
 			}
 			if (index < treeNode->parent->count && treeNode->parent->child[index + 1]->count > min) {
-				int count = treeNode->count;
 				treeNode->data[treeNode->count] = treeNode->parent->child[index + 1]->data[0];
 				treeNode->parent->data[index] = treeNode->parent->child[index + 1]->data[1];
 				for (int i = 0; i < treeNode->parent->child[index + 1]->count; i++)
 					treeNode->parent->child[index + 1]->data[i] = treeNode->parent->child[index + 1]->data[i + 1];
 				treeNode->parent->child[index + 1]->count--;
 				treeNode->count++;
-
-				// 更新父结点最值
-				if (!count && level > 1) {
-					BPlusTreeNode<Type> *node = treeNode;
-					while (level-- > 2)
-						node = node->parent;
-					for (index = 0; index <= node->parent->count; index++) {
-						if (node->parent->child[index] == node)
-							break;
-					}
-					if (index > 0)
-						node->parent->data[index - 1] = treeNode->data[0];
-				}
-
 				return;
 			}
 
@@ -3057,13 +3031,9 @@ private:
 				}
 				treeNode->parent->count--;
 
-				// 注：此情况不用更新父结点最值。因为3层及3层以上的父结点键值都是最左子结点的最值，而这种情况该结点并入到其左兄弟结点，说明该结点不是最左子结点
-
-				// 更新指向兄弟结点的指针
-				treeNode->parent->child[index - 1]->brother = treeNode->brother;
+				treeNode->parent->child[index - 1]->brother = treeNode->brother; // 更新指向兄弟结点的指针
 			}
 			else if (index < treeNode->parent->count){ // 右兄弟结点并入到当前结点
-				int count = treeNode->count;
 				for (int i = 0; i < treeNode->parent->child[index + 1]->count; i++)
 					treeNode->data[treeNode->count + i] = treeNode->parent->child[index + 1]->data[i];
 				treeNode->count += treeNode->parent->child[index + 1]->count;
@@ -3073,21 +3043,7 @@ private:
 				}
 				treeNode->parent->count--;
 
-				// 更新父结点最值
-				if (!count && level > 1) {
-					BPlusTreeNode<Type> *node = treeNode;
-					while (level-- > 2)
-						node = node->parent;
-					for (index = 0; index <= node->parent->count; index++) {
-						if (node->parent->child[index] == node)
-							break;
-					}
-					if (index > 0)
-						node->parent->data[index - 1] = treeNode->data[0];
-				}
-
-				// 更新指向兄弟结点的指针
-				treeNode->brother = treeNode->brother->brother;
+				treeNode->brother = treeNode->brother->brother; // 更新指向兄弟结点的指针
 			}
 		}
 		else
@@ -3162,7 +3118,7 @@ private:
 			}
 		}
 		
-		levelOrder();
+		//levelOrder();
 
 		// 如果treeNode的父结点为根结点且合并后父结点关键字为0，则将根结点指向treeNode父结点的第一个子结点
 		if (root == treeNode->parent) {
@@ -3175,7 +3131,7 @@ private:
 			if (treeNode->parent->parent->child[index] == treeNode->parent)
 				break;
 		}
-		merge(treeNode->parent, index, level);
+		merge(treeNode->parent, index);
 	}
 	/*深度优先遍历，非递归*/
 	void dfsTraverse(BPlusTreeNode<Type> *root) {
@@ -3248,7 +3204,7 @@ public:
 		insertNode(root, data);
 	}
 	BPlusTreeNode<Type> *find(Type data) { return findNode(root, data); }
-	void remove(Type data) { removeNode(root, data, 1); }
+	void remove(Type data) { removeNode(root, data, NULL, -1); }
 	void dfs() { dfsTraverse(root); }
 	void levelOrder() { levelOrderTraverse(root); }
 	void printData() {
